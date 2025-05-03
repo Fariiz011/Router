@@ -94,9 +94,9 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Indo" class="flag" />
   <div class="container">
     <img src="logo.png" alt="Logo SKY.AI" class="logo" />
-    <div class="title">SkyAI</div>
+    <div class="title">Welcome to SkyAI✨️</div>
     <div class="chatbox">
-      <input type="text" id="userInput" placeholder="Tanyakan apa saja..." onkeydown="handleKey(event)" />
+      <input type="text" id="userInput" placeholder="Tanyakan apa saja ngab✨️..." onkeydown="handleKey(event)" />
       <div class="response" id="response"></div>
     </div>
     <div class="credit">SkyAI</div>
@@ -120,7 +120,7 @@
       const message = input.value.trim();
       if (!message) return;
 
-      responseBox.innerHTML = "Mengetik...";
+      responseBox.innerHTML = "Sabar lagi mikir!...";
 
       try {
         const res = await fetch("https://api.cohere.ai/v1/chat", {
