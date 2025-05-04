@@ -107,7 +107,7 @@
     <div class="container">
       <div class="flag">
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="IDN" />
-        <span>SkyAI</span>
+        <span>Indonesian</span>
       </div>
       <img src="logo.png" alt="SKY.AI Logo" class="logo" />
       <div class="title">Welcome to SKY.AI</div>
@@ -164,3 +164,180 @@
 
   </body>
   </html>q
+  <!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKY.AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="logo.png" />
+  <style>
+    @font-face {
+      font-family: 'Quantify';
+      src: url('Quantify.ttf');
+    }body {
+  margin: 0;
+  font-family: 'Quantify', sans-serif;
+  background-color: #000;
+  color: white;
+  overflow-x: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: transparent;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.menu-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #111;
+  transition: 0.3s;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+}
+
+.toggle-switch, .language-select {
+  margin: 1rem 0;
+}
+
+.toggle-switch input {
+  cursor: pointer;
+}
+
+.language-select select {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.centered-content {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.centered-content img {
+  width: 120px;
+}
+
+.bubble {
+  background-color: #111;
+  padding: 1rem;
+  margin: 1rem auto;
+  max-width: 90%;
+  border-radius: 10px;
+}
+
+.bubble input, .bubble button {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.bubble input {
+  width: 70%;
+}
+
+.bubble button {
+  background-color: #00c6ff;
+  color: white;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  color: grey;
+  font-size: 0.9rem;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="ID Flag" />
+      <span class="logo-text">SkyAI</span>
+    </div>
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  </header>  <div class="sidebar" id="sidebar">
+    <h3>Pengaturan</h3>
+    <div class="toggle-switch">
+      <label>
+        <input type="checkbox" onchange="toggleTheme(this)"> Mode Gelap/Terang
+      </label>
+    </div>
+    <div class="language-select">
+      <label for="language">Bahasa:</label>
+      <select id="language" onchange="changeLanguage(this.value)">
+        <option value="id">Indonesia</option>
+        <option value="en">English</option>
+        <option value="ja">Jepang</option>
+        <option value="ru">Russia</option>
+        <option value="zh">China</option>
+      </select>
+    </div>
+  </div>  <div class="centered-content">
+    <img src="logo.png" alt="SkyAI Logo" />
+    <h1>Welcome to SKY.AI</h1>
+  </div>  <div class="bubble">
+    <p><strong>Kamu:</strong> hai,apa kabar?</p>
+    <p><strong>SKY.AI:</strong> Hai, saya baik-baik saja, terima kasih. Apa kabar Anda?</p>
+    <input type="text" placeholder="Tulis pertanyaan di sini...">
+    <button>Kirim</button>
+  </div>  <footer>
+    Dibuat oleh <strong>SkyAI Dev (M.Fariz)</strong> | © 2025 SKY.AI
+  </footer>  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    function toggleTheme(checkbox) {
+      document.body.style.backgroundColor = checkbox.checked ? "#fff" : "#000";
+      document.body.style.color = checkbox.checked ? "#000" : "#fff";
+    }
+
+    function changeLanguage(lang) {
+      alert("Bahasa diubah ke: " + lang);
+      // Tambahkan logika translasi jika perlu
+    }
+  </script></body>
+    </html>
