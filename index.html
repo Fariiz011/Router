@@ -4,249 +4,214 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SKY.AI</title>
-  <link rel="icon" href="assets/logo.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quantify&display=swap" />
+  <link rel="icon" href="logo.png" />
   <style>
-    @font-face {
-      font-family: 'Quantify';
-      src: url('assets/Quantify.ttf') format('truetype');
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #000;
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #0e0e0e;
       color: white;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    body.light {
-      background: #f0f0f0;
-      color: #000;
-    }
-
-    .splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: hideSplash 1s ease 3s forwards;
-    }
-
-    .splash img {
-      width: 120px;
-      animation: zoomIn 1s ease forwards;
-    }
-
-    .splash .title {
-      font-size: 24px;
-      margin-top: 20px;
-      font-family: 'Quantify', sans-serif;
-      white-space: nowrap;
-      border-right: 2px solid white;
-      width: 0;
       overflow: hidden;
-      animation: typing 2.5s steps(30) 1s forwards;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    @keyframes zoomIn {
-      from { transform: scale(0); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes hideSplash {
-      to { opacity: 0; visibility: hidden; }
-    }
-
-    header {
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background: #111;
+      padding: 16px 24px;
     }
 
-    header img {
-      width: 35px;
-      border-radius: 50%;
-    }
-
-    header h1 {
+    .logo-text {
       font-family: 'Quantify', sans-serif;
-      font-size: 24px;
-      margin-left: 10px;
+      font-size: 2rem;
     }
 
-    .menu {
-      font-size: 24px;
+    .logo-img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .menu-icon {
+      font-size: 28px;
       cursor: pointer;
     }
 
-    .sidebar {
+    .slide-menu {
       position: fixed;
-      top: 0; right: -250px;
-      width: 250px;
+      top: 0;
+      right: -300px;
+      width: 260px;
       height: 100%;
-      background: #222;
-      color: white;
+      background: #1a1a1a;
       padding: 20px;
-      transition: right 0.3s;
-      z-index: 999;
+      transition: right 0.3s ease;
+      box-shadow: -2px 0 6px rgba(0,0,0,0.4);
     }
 
-    .sidebar.show {
+    .slide-menu.active {
       right: 0;
     }
 
-    .sidebar label, .sidebar select {
-      display: block;
-      margin-bottom: 20px;
+    .toggle-switch {
+      margin: 20px 0;
     }
 
     .chat-container {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      height: calc(100vh - 80px);
+      height: 80vh;
+      margin: 0 auto;
+      width: 90%;
+      max-width: 600px;
+      background: #181818;
+      border-radius: 12px;
       padding: 20px;
-    }
-
-    .messages {
-      flex: 1;
       overflow-y: auto;
-      margin-bottom: 20px;
     }
 
-    .input-container {
+    .chat-bubble {
+      margin-bottom: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .bot {
+      background: #333;
+      align-self: flex-start;
+    }
+
+    .user {
+      background: #0066ff;
+      align-self: flex-end;
+    }
+
+    .input-area {
+      margin-top: 16px;
       display: flex;
-      gap: 10px;
+      justify-content: center;
+      gap: 8px;
     }
 
-    input[type="text"] {
-      flex: 1;
+    input, select {
       padding: 10px;
       border: none;
       border-radius: 6px;
+      width: 70%;
     }
 
     button {
-      padding: 10px 20px;
-      background: #444;
-      color: white;
+      padding: 10px 16px;
       border: none;
       border-radius: 6px;
+      background: #007bff;
+      color: white;
       cursor: pointer;
     }
 
-    body.light header,
-    body.light .sidebar {
-      background: #ccc;
-      color: black;
-    }
-
-    body.light input[type="text"],
-    body.light button {
-      background: white;
-      color: black;
+    .flag {
+      border-radius: 50%;
+      width: 28px;
+      margin-left: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Splash -->
-  <div class="splash">
-    <img src="assets/logo.png" alt="Logo">
-    <div class="title">Welcome to SKY.AI Buatan Anak Keren</div>
+  <div class="header">
+    <div style="display: flex; align-items: center;">
+      <img src="logo.png" alt="Logo" class="logo-img" />
+      <span class="logo-text" style="margin-left: 10px;">SKY.AI</span>
+      <img src="https://upload.wikimedia.org/wikipedia/id/9/9f/Flag_of_Indonesia.svg" class="flag" />
+    </div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <div style="display:flex; align-items:center;">
-      <img src="assets/logo.png" alt="Logo">
-      <h1>SkyAI</h1>
+  <div class="slide-menu" id="menu">
+    <div class="toggle-switch">
+      <label>Dark/Light Mode:</label>
+      <input type="checkbox" onchange="toggleTheme()" id="themeSwitch"/>
     </div>
-    <div class="menu" onclick="toggleSidebar()">☰</div>
-  </header>
-
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <label for="language">Bahasa:</label>
-    <select id="language">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="ja">Jepang</option>
-      <option value="ru">Rusia</option>
-      <option value="zh">China</option>
-    </select>
-    <label for="mode">Mode:</label>
-    <select id="mode" onchange="toggleMode(this.value)">
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-    </select>
+    <div>
+      <label for="language">Bahasa:</label><br />
+      <select id="language">
+        <option value="id">Indonesia</option>
+        <option value="en">English</option>
+        <option value="jp">Jepang</option>
+        <option value="ru">Rusia</option>
+        <option value="zh">China</option>
+      </select>
+    </div>
   </div>
 
-  <!-- Chat -->
-  <main class="chat-container">
-    <div class="messages" id="messages"></div>
-    <div class="input-container">
-      <input type="text" id="user-input" placeholder="Tanyakan sesuatu...">
-      <button onclick="sendMessage()">Kirim</button>
-    </div>
-  </main>
+  <div class="chat-container" id="chat"></div>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Tulis pertanyaan..." />
+    <button onclick="sendChat()">Kirim</button>
+  </div>
 
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('show');
+    let isDark = true;
+    const apiKey = 'YOUR_COHERE_API_KEY'; // Ganti ini!
+
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
     }
 
-    function toggleMode(mode) {
-      document.body.className = mode;
+    function toggleTheme() {
+      isDark = !isDark;
+      document.body.style.backgroundColor = isDark ? '#0e0e0e' : '#ffffff';
+      document.body.style.color = isDark ? 'white' : '#000000';
     }
 
-    async function sendMessage() {
-      const input = document.getElementById("user-input");
-      const messages = document.getElementById("messages");
-      const text = input.value.trim();
-      if (!text) return;
+    function appendBubble(text, type = 'bot') {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${type}`;
+      bubble.innerText = '';
+      document.getElementById('chat').appendChild(bubble);
 
-      messages.innerHTML += `<div><strong>Kamu:</strong> ${text}</div>`;
-      input.value = "Loading...";
+      let index = 0;
+      const typing = setInterval(() => {
+        if (index < text.length) {
+          bubble.innerText += text[index++];
+        } else {
+          clearInterval(typing);
+        }
+      }, 30);
+    }
+
+    async function sendChat() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (!message) return;
+      appendBubble(message, 'user');
+      input.value = '';
+
+      const language = document.getElementById('language').value;
 
       try {
         const res = await fetch("https://api.cohere.ai/v1/chat", {
           method: "POST",
           headers: {
-            "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6`,
           },
           body: JSON.stringify({
-            message: text,
-            connectors: [{"id": "web-search"}]
-          })
+            message: message,
+            connectors: [{ id: "web-search" }],
+            chat_history: [],
+          }),
         });
 
         const data = await res.json();
-        const reply = data.text || "Maaf, tidak ada jawaban.";
-        messages.innerHTML += `<div><strong>SkyAI:</strong> ${reply}</div>`;
+        const reply = data.text || "Maaf, tidak bisa menjawab.";
+        appendBubble(reply, 'bot');
       } catch (err) {
-        messages.innerHTML += `<div><strong>SkyAI:</strong> Maaf, terjadi kesalahan.</div>`;
+        appendBubble("Gagal terhubung ke API.", 'bot');
       }
-
-      input.value = "";
     }
   </script>
 </body>
-      </html>
+  </html>
