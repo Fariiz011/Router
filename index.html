@@ -65,6 +65,11 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(10px); }
+      50% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
 
     header {
       display: flex;
@@ -94,6 +99,7 @@
       padding: 1rem;
       margin: 20px auto;
       max-width: 500px;
+      position: relative;
     }
     .chatbox input {
       width: 80%;
@@ -127,6 +133,14 @@
       margin-top: 3rem;
       font-size: 12px;
     }
+    #placeholder-anim {
+      position: absolute;
+      margin-top: -2.2rem;
+      left: 10%;
+      font-size: 13px;
+      color: #888;
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -152,6 +166,7 @@
     </div>
 
     <div class="chatbox">
+      <div id="placeholder-anim">Contoh: "skrip Python"</div>
       <div class="chatlogs" id="chatlogs"></div>
       <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
       <button onclick="sendMessage()">Kirim</button>
@@ -212,6 +227,22 @@
       log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
       document.getElementById("userInput").value = "";
     }
+
+    // Placeholder animasi gaya OpenAI
+    const placeholderTexts = [
+      'Contoh: "skrip Python"',
+      'Contoh: "hewan paling cerdas"',
+      'Contoh: "apa itu AI?"',
+      'Contoh: "rumus luas lingkaran"',
+      'Contoh: "cara kerja jaringan komputer"',
+      'Contoh: "bahasa pemrograman untuk pemula"',
+    ];
+    let idx = 0;
+    setInterval(() => {
+      const el = document.getElementById('placeholder-anim');
+      el.textContent = placeholderTexts[idx];
+      idx = (idx + 1) % placeholderTexts.length;
+    }, 2500);
   </script>
 </body>
-</html>
+  </html>
