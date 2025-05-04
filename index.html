@@ -190,6 +190,9 @@
   </div>
 
   <script>
+    let darkMode = false;
+    let language = 'id'; // default language (id = Indonesia)
+
     window.addEventListener("load", () => {
       setTimeout(() => {
         document.getElementById("splash-screen").style.display = "none";
@@ -234,11 +237,14 @@
     }
 
     function toggleTheme() {
-      alert("Fitur ganti tema belum tersedia.");
+      darkMode = !darkMode;
+      document.body.style.backgroundColor = darkMode ? "#222" : "#000";
+      document.body.style.color = darkMode ? "#fff" : "#000";
     }
 
     function changeLanguage() {
-      alert("Fitur pilih bahasa sedang dikembangkan.");
+      language = (language === 'id') ? 'en' : 'id';
+      alert(`Bahasa diubah ke ${language === 'id' ? 'Indonesia' : 'English'}`);
     }
 
     function showAbout() {
