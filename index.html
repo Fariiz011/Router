@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SkyAI - Chatbot AI Buatan Anak Keren</title>
-
-  <!-- META TAG START -->
-  <meta name="title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <title>SkyAI - Chatbot AI Buatan Anak Keren</title>  <!-- META TAG START -->  <meta name="title" content="SkyAI - Chatbot AI Buatan Anak Keren">
   <meta name="description" content="SkyAI adalah chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran dengan gaya santai dan pintar.">
   <meta name="author" content="M.Fariz">
-  <meta name="keywords" content="chatbot AI Indonesia, SkyAI, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">
-  <meta name="google-site-verification" content="google5cb917f02066c7ea.html" />
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
+  <meta name="keywords" content="chatbot AI Indonesia, SkyAI, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">  <!-- Open Graph (Facebook, WhatsApp) -->  <meta property="og:type" content="website">
   <meta property="og:url" content="https://fariiz011.github.io/Router">
   <meta property="og:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
   <meta property="og:description" content="Chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran secara cerdas dan santai.">
-  <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">
-
-  <!-- Twitter Card -->
-  <meta property="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">  <!-- Twitter Card -->  <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://fariiz011.github.io/Router">
   <meta property="twitter:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
   <meta property="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
   <meta property="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
-  <!-- META TAG END -->
-
-  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+  <!-- META TAG END -->  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
   <style>
     body { 
       margin: 0;
@@ -36,36 +23,6 @@
       color: #fff;
       transition: background 0.3s, color 0.3s;
     }
-    #splash-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: black;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .splash-logo {
-      width: 100px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    .fade-text {
-      font-size: 1.5rem;
-      margin-top: 20px;
-      animation: fadeInUp 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
     header {
       display: flex;
       justify-content: space-between;
@@ -87,6 +44,8 @@
     .center {
       text-align: center;
       margin-top: 40px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease-in-out 2.5s forwards;
     }
     .chatbox {
       background: #111;
@@ -94,6 +53,7 @@
       padding: 1rem;
       margin: 20px auto;
       max-width: 500px;
+      display: none;
     }
     .chatbox input {
       width: 80%;
@@ -118,73 +78,75 @@
     .dark-mode .chatbox {
       background: #eee;
     }
-    .language-select {
+    .language-select, .footer {
       text-align: center;
       margin-top: 1rem;
+      display: none;
     }
-    .footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 12px;
+    #typing {
+      display: inline-block;
+      border-right: 2px solid #00d9ff;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: typing 2.5s steps(30, end) 2.5s forwards, blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .bot-avatar {
+      width: 30px;
+      vertical-align: middle;
+      margin-right: 5px;
+      border-radius: 50%;
     }
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
-  <div id="splash-screen">
-    <img src="logo.png" alt="SkyAI Logo" class="splash-logo" />
-    <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">SKY.AI</span></h1>
-  </div>
-
-  <!-- Main Content -->
-  <div id="main-content" style="display:none;">
-    <header>
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
-        <b>(IDN)</b>
-      </div>
-      <div class="menu" onclick="toggleDarkMode()">☰</div>
-    </header>
-
-    <div class="center">
-      <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
-      <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
+  <div id="loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:1000;">
+    <h1 id="typing">Memulai SkyAI...</h1>
+  </div>  <header style="display:none;">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
+      <b>(IDN)</b>
     </div>
-
-    <div class="chatbox">
-      <div class="chatlogs" id="chatlogs"></div>
-      <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
-      <button onclick="sendMessage()">Kirim</button>
+    <div class="menu" onclick="toggleDarkMode()">☰</div>
+  </header>  <div class="center">
+    <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
+    <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
+  </div>  <div class="chatbox">
+    <div class="chatlogs" id="chatlogs">
     </div>
-
-    <div class="language-select">
-      <label>Pilih Bahasa: </label>
-      <select id="language">
-        <option value="id">Indonesian</option>
-        <option value="en">English</option>
-        <option value="ja">Japanese</option>
-        <option value="ru">Russian</option>
-        <option value="zh">Chinese</option>
-      </select>
-    </div>
-
-    <div class="footer">
-      Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩
-    </div>
-  </div>
+    <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
+    <button onclick="playClickSound();sendMessage()">Kirim</button>
+  </div>  <div class="language-select">
+    <label>Pilih Bahasa: </label>
+    <select id="language">
+      <option value="id">Indonesian</option>
+      <option value="en">English</option>
+      <option value="ja">Japanese</option>
+      <option value="ru">Russian</option>
+      <option value="zh">Chinese</option>
+    </select>
+  </div>  <div class="footer">
+    Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩
+  </div><audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2a1b5c5374.mp3?filename=click-124467.mp3"></audio>
 
   <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-      }, 3000);
-    });
-
     let darkMode = true;
     function toggleDarkMode() {
       darkMode = !darkMode;
       document.body.classList.toggle('dark-mode');
+    }
+
+    function playClickSound() {
+      document.getElementById("clickSound").play();
     }
 
     async function sendMessage() {
@@ -209,9 +171,16 @@
       });
       const data = await res.json();
       const output = data.text || "Maaf, tidak bisa menjawab.";
-      log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
+      log.innerHTML += `<p><img class='bot-avatar' src='logo.png'/><b>SKY.AI:</b> ${output}</p>`;
       document.getElementById("userInput").value = "";
     }
-  </script>
-</body>
-  </html>
+
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.querySelector("header").style.display = "flex";
+      document.querySelector(".chatbox").style.display = "block";
+      document.querySelector(".language-select").style.display = "block";
+      document.querySelector(".footer").style.display = "block";
+    }, 3500);
+  </script></body>
+      </html>
