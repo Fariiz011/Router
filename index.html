@@ -124,10 +124,6 @@
     .dark-mode .chatbox {
       background: #eee;
     }
-    .language-select {
-      text-align: center;
-      margin-top: 1rem;
-    }
     .footer {
       text-align: center;
       margin-top: 3rem;
@@ -163,17 +159,6 @@
       <button onclick="sendMessage()">Kirim</button>
     </div>
 
-    <div class="language-select">
-      <label>Pilih Bahasa: </label>
-      <select id="language">
-        <option value="id">Indonesian</option>
-        <option value="en">English</option>
-        <option value="ja">Japanese</option>
-        <option value="ru">Russian</option>
-        <option value="zh">Chinese</option>
-      </select>
-    </div>
-
     <div class="footer">
       Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩
     </div>
@@ -196,7 +181,6 @@
 
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
-      const language = document.getElementById("language").value;
       const log = document.getElementById("chatlogs");
       log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
 
@@ -226,4 +210,4 @@
     }
   </script>
 </body>
-</html>
+  </html>
