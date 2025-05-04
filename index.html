@@ -2,132 +2,157 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SKY.AI</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quantify&display=swap" />
-  <link rel="icon" href="logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKY.AI - Buatan Anak Keren</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quantify&display=swap">
   <style>
     body {
       margin: 0;
-      font-family: 'Quantify', sans-serif;
-      background-color: #0e0e0e;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      overflow: hidden;
+      animation: fadeIn 1.5s ease;
     }
 
-    .logo-img {
-      width: 100px;
-      height: 100px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+
+    .flag {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+
+    .sky-title {
+      font-family: 'Quantify', sans-serif;
+      font-size: 26px;
+      animation: slowGlow 2s infinite alternate;
+    }
+
+    @keyframes slowGlow {
+      0% { opacity: 0.7; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.08); }
+    }
+
+    main {
+      height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo {
+      width: 120px;
       margin-bottom: 20px;
     }
 
-    .title {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
+    h1 {
+      font-size: 32px;
+      font-family: 'Quantify', sans-serif;
+      margin-bottom: 15px;
     }
 
-    .chat-container {
+    .chat-box {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 20px;
       width: 90%;
       max-width: 600px;
-      background: #181818;
-      border-radius: 12px;
-      padding: 20px;
-      overflow-y: auto;
-      flex-grow: 1;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     }
 
-    .chat-bubble {
-      margin-bottom: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      max-width: 80%;
-    }
-
-    .bot {
-      background: #333;
-      align-self: flex-start;
-    }
-
-    .user {
-      background: #0066ff;
-      align-self: flex-end;
-    }
-
-    .input-area {
-      margin-top: 16px;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    input {
-      padding: 10px;
+    .chat-input {
+      width: 100%;
       border: none;
-      border-radius: 6px;
-      width: 70%;
-    }
-
-    button {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 6px;
-      background: #007bff;
+      background: #111;
+      padding: 15px;
+      border-radius: 15px;
       color: white;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    .chat-button {
+      margin-top: 10px;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      background: cyan;
+      color: black;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .chat-button:hover {
+      background: #00ffffaa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      opacity: 0.5;
     }
   </style>
 </head>
 <body>
-  <img src="logo.png" alt="Logo" class="logo-img" />
-  <div class="title">SKY.AI</div>
-
-  <div class="chat-container" id="chat"></div>
-
-  <div class="input-area">
-    <input type="text" id="userInput" placeholder="Tulis pertanyaan..." />
-    <button onclick="sendChat()">Kirim</button>
-  </div>
+  <header>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="IDN" class="flag" />
+    <div class="sky-title">SkyAI</div>
+  </header>
+  <main>
+    <img src="logo.png" class="logo" alt="SKY.AI Logo" />
+    <h1>Welcome to SKY.AI Buatan Anak Keren</h1>
+    <div class="chat-box">
+      <textarea id="userInput" class="chat-input" placeholder="Tulis pertanyaan kamu..."></textarea>
+      <button onclick="sendMessage()" class="chat-button">Kirim</button>
+      <div id="chatResponse" style="margin-top:15px;"></div>
+    </div>
+  </main>
+  <footer>
+    SKY.AI © 2025 - Buatan Anak Indonesia
+  </footer>
 
   <script>
-    const apiKey = '2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6'; // Ganti ini!
-
-    function appendBubble(text, type = 'bot') {
-      const bubble = document.createElement('div');
-      bubble.className = `chat-bubble ${type}`;
-      bubble.innerText = text;
-      document.getElementById('chat').appendChild(bubble);
-    }
-
-    async function sendChat() {
-      const input = document.getElementById('userInput');
-      const message = input.value.trim();
-      if (!message) return;
-      appendBubble(message, 'user');
-      input.value = '';
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      if (!input.trim()) return;
+      const responseBox = document.getElementById("chatResponse");
+      responseBox.innerHTML = "Loading...";
 
       try {
         const res = await fetch("https://api.cohere.ai/v1/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${apiKey}`,
+            "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6"
           },
           body: JSON.stringify({
-            message: message,
-            connectors: [{ id: "web-search" }],
-            chat_history: [],
-          }),
+            message: input,
+            chat_history: []
+          })
         });
 
         const data = await res.json();
-        const reply = data.text || "Maaf, tidak bisa menjawab.";
-        appendBubble(reply, 'bot');
+        responseBox.innerHTML = `<strong>Jawaban:</strong> ${data.text || 'Tidak ada respon.'}`;
       } catch (err) {
-        appendBubble("Gagal terhubung ke API.", 'bot');
+        responseBox.innerHTML = "Terjadi kesalahan. Coba lagi.";
       }
     }
   </script>
