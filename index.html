@@ -3,167 +3,250 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IDN</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+  <title>SKY.AI</title>
+  <link rel="icon" href="logo.png" />
   <style>
-   
-    body {
-    <!-- Splash Screen -->
-  <div id="splash-screen" style="
+    @font-face {
+      font-family: 'Quantify';
+      src: url('Quantify.ttf') format('truetype');
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Quantify', sans-serif;
+      height: 100%;
+      overflow: hidden;
+      transition: background-color 0.3s;
+    }
+
+    .splash {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: black;
+      width: 100%; height: 100%;
+      background-color: #000;
+      color: white;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 9999;
-      font-family: 'Quantify', sans-serif;
+      animation: fadeOut 1s ease 2s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .container {
+      height: 100vh;
+      width: 100vw;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .flag {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .skyai-text {
+      font-family: 'Quantify';
+      font-size: 28px;
+      color: white;
+      animation: fadeInSlow 2s ease-in-out;
+    }
+
+    @keyframes fadeInSlow {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .title {
+      font-size: 24px;
       color: white;
       text-align: center;
-   ">
-  <img src="logo.png" alt="Logo SKY.AI" style="width: 120px; margin-bottom: 20px;">
-  <h1 style="font-size: 28px;">Welcome to SKY.AI</h1>
-</div> 
-      margin: 0;
-      font-family: 'Quantico', sans-serif;
-      background-color: #000;
-      color: #fff;
-      transition: background 0.3s, color 0.3s;
+      margin-bottom: 20px;
     }
-    header {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem;
-      align-items: center;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo img {
-      height: 20px;
-    }
-    .menu {
-      font-size: 24px;
-      cursor: pointer;
-    }
-    .center {
-      text-align: center;
-      margin-top: 40px;
-    }
-    .chatbox {
-      background: #111;
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 20px auto;
-      max-width: 500px;
-    }
-    .chatbox input {
-      width: 80%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-    }
-    .chatbox button {
-      padding: 10px;
-      background: #00d9ff;
-      color: black;
-      border: none;
-      border-radius: 5px;
-    }
-    .chatlogs {
+
+    .chat-box {
+      background: white;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      padding: 15px;
       margin-top: 10px;
     }
-    .dark-mode {
-      background-color: #fff;
-      color: #000;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      outline: none;
     }
-    .dark-mode .chatbox {
-      background: #eee;
+
+    .send-btn {
+      margin-top: 10px;
+      padding: 10px;
+      background: black;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
     }
-    .language-select {
-      text-align: center;
-      margin-top: 1rem;
+
+    .menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
     }
-    .footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 12px;
+
+    .menu button {
+      font-size: 26px;
+      background: none;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .menu-content {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 20px;
+      background: #111;
+      border: 1px solid #444;
+      border-radius: 10px;
+      padding: 10px;
+      color: white;
+      z-index: 100;
+    }
+
+    .menu-content select,
+    .menu-content button {
+      margin: 5px 0;
+      width: 100%;
+    }
+
+    .dark {
+      background-color: #000;
+      color: white;
+    }
+
+    .light {
+      background-color: #f2f2f2;
+      color: black;
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
-      <b>SkyAI</b>
+<body class="dark">
+  <div class="splash">
+    <img src="logo.png" alt="Logo" class="logo" />
+    <div class="title">Welcome to SKY.AI<br>Buatan Anak Keren</div>
+  </div>
+
+  <div class="container" id="main">
+    <div class="header">
+      <img src="https://flagcdn.com/w40/id.png" alt="ID" class="flag" />
+      <div class="skyai-text">SkyAI</div>
     </div>
-    <div class="menu" onclick="toggleDarkMode()">☰</div>
-  </header>
 
-  <div class="center">
-    <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
-    <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
-  </div>
+    <img src="logo.png" alt="Logo" class="logo" />
 
-  <div class="chatbox">
-    <div class="chatlogs" id="chatlogs">
+    <div class="chat-box">
+      <input type="text" id="input" placeholder="Tulis pertanyaan kamu disini..." />
+      <button class="send-btn" onclick="sendMessage()">Kirim</button>
+      <p id="response" style="margin-top: 15px;"></p>
     </div>
-    <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
-    <button onclick="sendMessage()">Kirim</button>
-  </div>
 
-  <div class="language-select">
-    <label>Pilih Bahasa: </label>
-    <select id="language">
-      <option value="id">Indonesian</option>
-      <option value="en">English</option>
-      <option value="ja">Japanese</option>
-      <option value="ru">Russian</option>
-      <option value="zh">Chinese</option>
-    </select>
-  </div>
-
-  <div class="footer">
-    Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 (By Indonesian)
+    <div class="menu">
+      <button onclick="toggleMenu()">☰</button>
+      <div class="menu-content" id="menuContent">
+        <label for="language">Bahasa:</label>
+        <select id="language">
+          <option value="id">Indonesia</option>
+          <option value="en">English</option>
+          <option value="ja">Jepang</option>
+          <option value="ru">Rusia</option>
+          <option value="zh">China</option>
+        </select>
+        <button onclick="toggleTheme()">Dark/Light</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    let darkMode = true;
-    function toggleDarkMode() {
-      darkMode = !darkMode;
-      document.body.classList.toggle('dark-mode');
+    const container = document.querySelector('.container');
+    const body = document.body;
+
+    function toggleMenu() {
+      const menu = document.getElementById('menuContent');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleTheme() {
+      body.classList.toggle('light');
+      body.classList.toggle('dark');
     }
 
     async function sendMessage() {
-      const input = document.getElementById("userInput").value;
-      const language = document.getElementById("language").value;
-      const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
+      const input = document.getElementById('input');
+      const responseBox = document.getElementById('response');
+      const language = document.getElementById('language').value;
 
-      const res = await fetch("https://api.cohere.ai/v1/chat", {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "command-r-plus",
-          message: input,
-          temperature: 0.7,
-          chat_history: [],
-          prompt_truncation: "auto"
-        })
-      });
-      const data = await res.json();
-      const output = data.text || "Maaf, tidak bisa menjawab.";
-      log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
-      document.getElementById("userInput").value = "";
+      responseBox.innerText = 'Menjawab...';
+
+      try {
+        const res = await fetch('https://api.cohere.ai/v1/chat', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: "command-r-plus",
+            message: input.value,
+            temperature: 0.7,
+            connectors: [{ id: "web-search" }]
+          })
+        });
+
+        const data = await res.json();
+        responseBox.innerText = data.text || "Gagal menjawab.";
+      } catch (err) {
+        responseBox.innerText = "Terjadi kesalahan.";
+      }
     }
   </script>
 </body>
-  </html>
+</html>
