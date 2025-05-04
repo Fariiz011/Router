@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SKY.AI</title>
-  <link rel="icon" href="logo.png" />
+  <link rel="icon" href="assets/logo.png" />
   <style>
     @font-face {
       font-family: 'Quantify';
-      src: url('Quantify.ttf') format('truetype');
+      src: url('assets/Quantify.ttf') format('truetype');
     }
 
     * {
@@ -17,236 +17,236 @@
       box-sizing: border-box;
     }
 
-    body, html {
-      font-family: 'Quantify', sans-serif;
-      height: 100%;
-      overflow: hidden;
-      transition: background-color 0.3s;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+      color: white;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background: #f0f0f0;
+      color: #000;
     }
 
     .splash {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: #000;
-      color: white;
+      background: #000;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       z-index: 9999;
-      animation: fadeOut 1s ease 2s forwards;
+      animation: hideSplash 1s ease 3s forwards;
     }
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+    .splash img {
+      width: 120px;
+      animation: zoomIn 1s ease forwards;
     }
 
-    .container {
-      height: 100vh;
-      width: 100vw;
-      background-color: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .header {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      display: flex;
-      align-items: center;
-    }
-
-    .flag {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .skyai-text {
-      font-family: 'Quantify';
-      font-size: 28px;
-      color: white;
-      animation: fadeInSlow 2s ease-in-out;
-    }
-
-    @keyframes fadeInSlow {
-      from { opacity: 0; transform: translateX(-10px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .logo {
-      width: 100px;
-      height: auto;
-      margin-bottom: 10px;
-    }
-
-    .title {
+    .splash .title {
       font-size: 24px;
-      color: white;
-      text-align: center;
-      margin-bottom: 20px;
+      margin-top: 20px;
+      font-family: 'Quantify', sans-serif;
+      white-space: nowrap;
+      border-right: 2px solid white;
+      width: 0;
+      overflow: hidden;
+      animation: typing 2.5s steps(30) 1s forwards;
     }
 
-    .chat-box {
-      background: white;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 600px;
-      padding: 15px;
-      margin-top: 10px;
+    @keyframes zoomIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-      outline: none;
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
     }
 
-    .send-btn {
-      margin-top: 10px;
-      padding: 10px;
-      background: black;
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
+    @keyframes hideSplash {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #111;
+    }
+
+    header img {
+      width: 35px;
+      border-radius: 50%;
+    }
+
+    header h1 {
+      font-family: 'Quantify', sans-serif;
+      font-size: 24px;
+      margin-left: 10px;
     }
 
     .menu {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    .menu button {
-      font-size: 26px;
-      background: none;
-      color: white;
-      border: none;
+      font-size: 24px;
       cursor: pointer;
     }
 
-    .menu-content {
-      display: none;
-      position: absolute;
-      top: 50px;
-      right: 20px;
-      background: #111;
-      border: 1px solid #444;
-      border-radius: 10px;
+    .sidebar {
+      position: fixed;
+      top: 0; right: -250px;
+      width: 250px;
+      height: 100%;
+      background: #222;
+      color: white;
+      padding: 20px;
+      transition: right 0.3s;
+      z-index: 999;
+    }
+
+    .sidebar.show {
+      right: 0;
+    }
+
+    .sidebar label, .sidebar select {
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: calc(100vh - 80px);
+      padding: 20px;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+
+    .input-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
       padding: 10px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #444;
       color: white;
-      z-index: 100;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .menu-content select,
-    .menu-content button {
-      margin: 5px 0;
-      width: 100%;
+    body.light header,
+    body.light .sidebar {
+      background: #ccc;
+      color: black;
     }
 
-    .dark {
-      background-color: #000;
-      color: white;
-    }
-
-    .light {
-      background-color: #f2f2f2;
+    body.light input[type="text"],
+    body.light button {
+      background: white;
       color: black;
     }
   </style>
 </head>
-<body class="dark">
+<body>
+  <!-- Splash -->
   <div class="splash">
-    <img src="logo.png" alt="Logo" class="logo" />
-    <div class="title">Welcome to SKY.AI<br>Buatan Anak Keren</div>
+    <img src="assets/logo.png" alt="Logo">
+    <div class="title">Welcome to SKY.AI Buatan Anak Keren</div>
   </div>
 
-  <div class="container" id="main">
-    <div class="header">
-      <img src="https://flagcdn.com/w40/id.png" alt="ID" class="flag" />
-      <div class="skyai-text">SkyAI</div>
+  <!-- Header -->
+  <header>
+    <div style="display:flex; align-items:center;">
+      <img src="assets/logo.png" alt="Logo">
+      <h1>SkyAI</h1>
     </div>
+    <div class="menu" onclick="toggleSidebar()">☰</div>
+  </header>
 
-    <img src="logo.png" alt="Logo" class="logo" />
-
-    <div class="chat-box">
-      <input type="text" id="input" placeholder="Tulis pertanyaan kamu disini..." />
-      <button class="send-btn" onclick="sendMessage()">Kirim</button>
-      <p id="response" style="margin-top: 15px;"></p>
-    </div>
-
-    <div class="menu">
-      <button onclick="toggleMenu()">☰</button>
-      <div class="menu-content" id="menuContent">
-        <label for="language">Bahasa:</label>
-        <select id="language">
-          <option value="id">Indonesia</option>
-          <option value="en">English</option>
-          <option value="ja">Jepang</option>
-          <option value="ru">Rusia</option>
-          <option value="zh">China</option>
-        </select>
-        <button onclick="toggleTheme()">Dark/Light</button>
-      </div>
-    </div>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <label for="language">Bahasa:</label>
+    <select id="language">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="ja">Jepang</option>
+      <option value="ru">Rusia</option>
+      <option value="zh">China</option>
+    </select>
+    <label for="mode">Mode:</label>
+    <select id="mode" onchange="toggleMode(this.value)">
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+    </select>
   </div>
+
+  <!-- Chat -->
+  <main class="chat-container">
+    <div class="messages" id="messages"></div>
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Tanyakan sesuatu...">
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+  </main>
 
   <script>
-    const container = document.querySelector('.container');
-    const body = document.body;
-
-    function toggleMenu() {
-      const menu = document.getElementById('menuContent');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('show');
     }
 
-    function toggleTheme() {
-      body.classList.toggle('light');
-      body.classList.toggle('dark');
+    function toggleMode(mode) {
+      document.body.className = mode;
     }
 
     async function sendMessage() {
-      const input = document.getElementById('input');
-      const responseBox = document.getElementById('response');
-      const language = document.getElementById('language').value;
+      const input = document.getElementById("user-input");
+      const messages = document.getElementById("messages");
+      const text = input.value.trim();
+      if (!text) return;
 
-      responseBox.innerText = 'Menjawab...';
+      messages.innerHTML += `<div><strong>Kamu:</strong> ${text}</div>`;
+      input.value = "Loading...";
 
       try {
-        const res = await fetch('https://api.cohere.ai/v1/chat', {
-          method: 'POST',
+        const res = await fetch("https://api.cohere.ai/v1/chat", {
+          method: "POST",
           headers: {
-            'Authorization': 'Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6',
-            'Content-Type': 'application/json'
+            "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            model: "command-r-plus",
-            message: input.value,
-            temperature: 0.7,
-            connectors: [{ id: "web-search" }]
+            message: text,
+            connectors: [{"id": "web-search"}]
           })
         });
 
         const data = await res.json();
-        responseBox.innerText = data.text || "Gagal menjawab.";
+        const reply = data.text || "Maaf, tidak ada jawaban.";
+        messages.innerHTML += `<div><strong>SkyAI:</strong> ${reply}</div>`;
       } catch (err) {
-        responseBox.innerText = "Terjadi kesalahan.";
+        messages.innerHTML += `<div><strong>SkyAI:</strong> Maaf, terjadi kesalahan.</div>`;
       }
+
+      input.value = "";
     }
   </script>
 </body>
-</html>
+      </html>
