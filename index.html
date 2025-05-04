@@ -47,6 +47,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      animation: fadeOut 3s ease-in-out forwards;
     }
     .splash-logo {
       width: 100px;
@@ -65,10 +66,9 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translateY(10px); }
-      50% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-10px); }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; display: none; }
     }
 
     header {
@@ -133,14 +133,6 @@
       margin-top: 3rem;
       font-size: 12px;
     }
-    #placeholder-anim {
-      position: absolute;
-      margin-top: -2.2rem;
-      left: 10%;
-      font-size: 13px;
-      color: #888;
-      animation: fadeInOut 2s ease-in-out infinite;
-    }
   </style>
 </head>
 <body>
@@ -166,7 +158,6 @@
     </div>
 
     <div class="chatbox">
-      <div id="placeholder-anim">Contoh: "skrip Python"</div>
       <div class="chatlogs" id="chatlogs"></div>
       <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
       <button onclick="sendMessage()">Kirim</button>
@@ -193,6 +184,7 @@
       setTimeout(() => {
         document.getElementById("splash-screen").style.display = "none";
         document.getElementById("main-content").style.display = "block";
+        startSkyAIChat();  // Mulai chat dengan SkyAI
       }, 3000);
     });
 
@@ -228,21 +220,10 @@
       document.getElementById("userInput").value = "";
     }
 
-    // Placeholder animasi gaya OpenAI
-    const placeholderTexts = [
-      'Contoh: "skrip Python"',
-      'Contoh: "hewan paling cerdas"',
-      'Contoh: "apa itu AI?"',
-      'Contoh: "rumus luas lingkaran"',
-      'Contoh: "cara kerja jaringan komputer"',
-      'Contoh: "bahasa pemrograman untuk pemula"',
-    ];
-    let idx = 0;
-    setInterval(() => {
-      const el = document.getElementById('placeholder-anim');
-      el.textContent = placeholderTexts[idx];
-      idx = (idx + 1) % placeholderTexts.length;
-    }, 2500);
+    function startSkyAIChat() {
+      const log = document.getElementById("chatlogs");
+      log.innerHTML += `<p><b>SKY.AI:</b> Hai! Aku SkyAI, ada yang bisa aku bantu?</p>`;
+    }
   </script>
 </body>
-  </html>
+</html>
