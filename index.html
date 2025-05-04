@@ -29,7 +29,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
   <style>
-    body { 
+    body {
       margin: 0;
       font-family: 'Quantico', sans-serif;
       background-color: #000;
@@ -85,10 +85,34 @@
     .logo img {
       height: 20px;
     }
-    .menu {
+    .settings-icon {
       font-size: 24px;
       cursor: pointer;
+      margin-right: 10px;
     }
+    .settings-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 10px;
+      z-index: 1000;
+      width: 200px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .settings-menu p {
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .settings-menu p:hover {
+      background-color: #222;
+    }
+
     .center {
       text-align: center;
       margin-top: 40px;
@@ -117,10 +141,6 @@
     .chatlogs {
       margin-top: 10px;
     }
-    .language-select {
-      text-align: center;
-      margin-top: 1rem;
-    }
     .footer {
       text-align: center;
       margin-top: 3rem;
@@ -142,7 +162,16 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
         <b>(IDN)</b>
       </div>
+      <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
     </header>
+
+    <!-- Settings Popup -->
+    <div id="settings-menu" class="settings-menu">
+      <p onclick="toggleTheme()">Ganti Tema</p>
+      <p onclick="changeLanguage()">Pilih Bahasa</p>
+      <p onclick="showAbout()">Tentang SkyAI</p>
+      <p onclick="resetChat()">Reset Chat</p>
+    </div>
 
     <div class="center">
       <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
@@ -165,7 +194,7 @@
       setTimeout(() => {
         document.getElementById("splash-screen").style.display = "none";
         document.getElementById("main-content").style.display = "block";
-        startSkyAIChat();  // Mulai chat dengan SkyAI
+        startSkyAIChat();
       }, 3000);
     });
 
@@ -197,6 +226,28 @@
     function startSkyAIChat() {
       const log = document.getElementById("chatlogs");
       log.innerHTML += `<p><b>SKY.AI:</b> Hai! Aku SkyAI, ada yang bisa aku bantu?</p>`;
+    }
+
+    function toggleSettings() {
+      const menu = document.getElementById("settings-menu");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    function toggleTheme() {
+      alert("Fitur ganti tema belum tersedia.");
+    }
+
+    function changeLanguage() {
+      alert("Fitur pilih bahasa sedang dikembangkan.");
+    }
+
+    function showAbout() {
+      alert("SkyAI versi 1.0\nDibuat oleh M.Fariz\nChatbot AI buatan anak Indonesia.");
+    }
+
+    function resetChat() {
+      document.getElementById("chatlogs").innerHTML = "";
+      startSkyAIChat();
     }
   </script>
 </body>
