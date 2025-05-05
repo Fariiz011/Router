@@ -4,25 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SkyAI - Enterprise</title>
-  <!-- META TAG START -->
+  <!-- META TAG -->
   <meta name="title" content="SkyAI - Chatbot AI Buatan Anak Keren">
   <meta name="description" content="SkyAI adalah chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran dengan gaya santai dan pintar.">
   <meta name="author" content="M.Fariz">
   <meta name="keywords" content="chatbot AI Indonesia, SkyAI, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">
-  <meta name="google-site-verification" content="google5cb917f02066c7ea.html" />
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
   <meta property="og:url" content="https://fariiz011.github.io/Router">
   <meta property="og:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
   <meta property="og:description" content="Chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran secara cerdas dan santai.">
   <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">
-  <!-- Twitter Card -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://fariiz011.github.io/Router">
-  <meta property="twitter:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
-  <meta property="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
-  <meta property="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
-  <!-- META TAG END -->
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta name="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
+  <meta name="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
   <style>
     body {
@@ -30,14 +25,13 @@
       font-family: 'Quantico', sans-serif;
       background-color: #000;
       color: #fff;
-      transition: background 0.3s, color 0.3s;
     }
     #splash-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: black;
-      color: white;
+      background-color: #000;
+      color: #fff;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -117,7 +111,6 @@
       padding: 1rem;
       margin: 20px auto;
       max-width: 500px;
-      position: relative;
     }
     .chatbox input {
       width: 80%;
@@ -140,37 +133,14 @@
       margin-top: 3rem;
       font-size: 12px;
     }
-    /* Profile Section */
-    .profile-section {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .profile-section input {
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #222;
-      color: white;
-      width: 70%;
-    }
-    .profile-section button {
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #00d9ff;
-      color: black;
-      border-radius: 5px;
-      border: none;
-    }
   </style>
 </head>
 <body>
-  <!-- Splash Screen -->
   <div id="splash-screen">
     <img src="logo.png" alt="SkyAI Logo" class="splash-logo" />
     <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">SKY.AI</span></h1>
   </div>
-  <!-- Main Content -->
+
   <div id="main-content" style="display:none;">
     <header>
       <div class="logo">
@@ -179,9 +149,8 @@
       </div>
       <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
     </header>
-    <!-- Settings Popup -->
+
     <div id="settings-menu" class="settings-menu">
-      <p onclick="toggleTheme()">Ganti Tema</p>
       <p onclick="changeLanguage()">Pilih Bahasa</p>
       <p onclick="showAbout()">Tentang SkyAI</p>
       <p onclick="resetChat()">Reset Chat</p>
@@ -190,13 +159,6 @@
     <div class="center">
       <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
       <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
-    </div>
-
-    <!-- Profile Section -->
-    <div class="profile-section">
-      <h2>Masukkan Profil Anda</h2>
-      <input type="text" id="username" placeholder="Nama Pengguna" />
-      <button onclick="saveProfile()">Simpan Profil</button>
     </div>
 
     <div class="chatbox">
@@ -211,9 +173,7 @@
   </div>
 
   <script>
-    let darkMode = false;
-    let language = 'id'; // default language (id = Indonesia)
-    let profileName = '';
+    let language = 'id';
 
     window.addEventListener("load", () => {
       setTimeout(() => {
@@ -223,16 +183,10 @@
       }, 3000);
     });
 
-    function saveProfile() {
-      profileName = document.getElementById("username").value;
-      alert(`Profil disimpan: ${profileName}`);
-      document.getElementById("username").value = ''; // Clear input after saving
-    }
-
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
       const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>${profileName ? profileName : 'Kamu'}:</b> ${input}</p>`;
+      log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
 
       const res = await fetch("https://api.cohere.ai/v1/chat", {
         method: "POST",
@@ -262,12 +216,6 @@
     function toggleSettings() {
       const menu = document.getElementById("settings-menu");
       menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-
-    function toggleTheme() {
-      darkMode = !darkMode;
-      document.body.style.backgroundColor = darkMode ? "#222" : "#000";
-      document.body.style.color = darkMode ? "#fff" : "#000";
     }
 
     function changeLanguage() {
