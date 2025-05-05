@@ -154,6 +154,7 @@
       <p onclick="changeLanguage()">Pilih Bahasa</p>
       <p onclick="showAbout()">Tentang SkyAI</p>
       <p onclick="resetChat()">Reset Chat</p>
+      <p onclick="showSupport()">Support</p>
     </div>
 
     <div class="center">
@@ -231,6 +232,10 @@
     function resetChat() {
       document.getElementById("chatlogs").innerHTML = "";
       startSkyAIChat();
+    }
+
+    function showSupport() {
+      alert("Untuk bantuan, hubungi: skyai.support@gmail.com\nAtau kunjungi: github.com/Fariiz011/Router");
     }
   </script>
 </body>
