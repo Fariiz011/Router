@@ -197,9 +197,9 @@
         const output = data.text || (language === 'id'
           ? "Maaf, tidak bisa menjawab."
           : "Sorry, I can't answer that.");
-        log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
+        log.innerHTML += `<p><b>Enterprise:</b> ${output}</p>`;
       } catch {
-        log.innerHTML += `<p><b>SKY.AI:</b> ${language === 'id'
+        log.innerHTML += `<p><b>Enterprise:</b> ${language === 'id'
           ? "Terjadi kesalahan koneksi."
           : "Connection error."}</p>`;
       }
