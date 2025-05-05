@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -85,63 +84,143 @@
   <div id="splash-screen">
     <img src="logo enterprise.png" alt="enterprise Logo" class="splash-logo"/>
     <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">ENTERPRISE</span></h1>
-  </div>
-
-  <div id="main-content" style="display:none;">
+  </div>  <div id="main-content" style="display:none;">
     <header>
       <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
-        <b>(IDN)</b>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag" id="flag"/>
+        <b id="lang-code">(IDN)</b>
       </div>
       <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
-    </header>
-
-    <div id="settings-menu" class="settings-menu">
-      <p onclick="toggleSubmenu('lang')">Pilih Bahasa ▼</p>
-      <div id="lang" class="settings-submenu">
-        <p onclick="setLanguage('id')">Indonesian🇮🇩</p>
-        <p onclick="setLanguage('en')">English🇬🇧</p>
-      </div>
-
-      <p onclick="toggleSubmenu('about')">Tentang SkyAI ▼</p>
-      <div id="about" class="settings-submenu">
-        <p>AI-Enterprise versi 1.0.</p>
-        <p>Dibuat oleh M.Fariz AI Enterprise Ini Masih Tahap Pengembangan!</p>
-      </div>
-
-      <p onclick="toggleSubmenu('support')">Support ▼</p>
-      <div id="support" class="settings-submenu">
-        <a href="mailto:rizzenterprise01@gmail.com">Email: rizzenterprise01@gmail.com</a>
-        <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
-      </div>
-
-      <p onclick="resetChat()">Reset Chat</p>
-    </div>
-
-    <div class="center">
-      <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
-      <h1>Welcome to <span style="color:#00d9ff">ENTERPRISE</span></h1>
-    </div>
-
-    <div class="chatbox">
-      <div class="chatlogs" id="chatlogs"></div>
-      <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
-      <button onclick="sendMessage()">Kirim</button>
-    </div>
-
-    <div class="footer">
-      Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
-    </div>
+    </header><div id="settings-menu" class="settings-menu">
+  <p onclick="toggleSubmenu('lang')">Pilih Bahasa ▼</p>
+  <div id="lang" class="settings-submenu">
+    <p onclick="setLanguage('id')">Indonesian🇮🇩</p>
+    <p onclick="setLanguage('en')">English🇬🇧</p>
+    <p onclick="setLanguage('ja')">日本語🇯🇵</p>
+    <p onclick="setLanguage('ru')">Русский🇷🇺</p>
+    <p onclick="setLanguage('zh')">中文🇨🇳</p>
   </div>
+  <p onclick="toggleSubmenu('about')" id="about-label">Tentang SkyAI ▼</p>
+  <div id="about" class="settings-submenu">
+    <p id="about-version">AI-Enterprise versi 1.0.</p>
+    <p id="about-dev">Dibuat oleh M.Fariz AI Enterprise Ini Masih Tahap Pengembangan!</p>
+  </div>
+  <p onclick="toggleSubmenu('support')" id="support-label">Support ▼</p>
+  <div id="support" class="settings-submenu">
+    <a href="mailto:rizzenterprise01@gmail.com">Email: rizzenterprise01@gmail.com</a>
+    <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
+  </div>
+  <p onclick="resetChat()" id="reset-label">Reset Chat</p>
+</div>
 
-  <script>
+<div class="center">
+  <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
+  <h1 id="welcome-text">Welcome to <span style="color:#00d9ff">ENTERPRISE</span></h1>
+</div>
+
+<div class="chatbox">
+  <div class="chatlogs" id="chatlogs"></div>
+  <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
+  <button onclick="sendMessage()" id="send-btn">Kirim</button>
+</div>
+
+<div class="footer" id="footer-text">
+  Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
+</div>
+
+  </div>  <script>
     let language = 'id';
+    const translations = {
+      id: {
+        welcome: "Welcome to <span style='color:#00d9ff'>ENTERPRISE</span>",
+        send: "Kirim",
+        placeholder: "Tulis pertanyaan di sini...",
+        start: "Hai! Aku Prise, ada yang bisa aku bantu?",
+        about: "Tentang SkyAI ▼",
+        version: "AI-Enterprise versi 1.0.",
+        dev: "Dibuat oleh M.Fariz AI Enterprise Ini Masih Tahap Pengembangan!",
+        support: "Support ▼",
+        reset: "Reset Chat",
+        footer: "Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
+        error: "Terjadi kesalahan koneksi.",
+        fail: "Maaf, tidak bisa menjawab."
+      },
+      en: {
+        welcome: "Welcome to <span style='color:#00d9ff'>ENTERPRISE</span>",
+        send: "Send",
+        placeholder: "Type your question here...",
+        start: "Hi! I'm Prise, how can I assist you?",
+        about: "About SkyAI ▼",
+        version: "AI-Enterprise version 1.0.",
+        dev: "Created by M.Fariz. This is still under development!",
+        support: "Support ▼",
+        reset: "Reset Chat",
+        footer: "Made by <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
+        error: "Connection error.",
+        fail: "Sorry, I can't answer that."
+      },
+      ja: {
+        welcome: "ようこそ <span style='color:#00d9ff'>ENTERPRISE</span>へ",
+        send: "送信",
+        placeholder: "ここに質問を入力してください...",
+        start: "こんにちは！私はプライスです。どうしましたか？",
+        about: "SkyAIについて ▼",
+        version: "AI-Enterprise バージョン 1.0.",
+        dev: "M.Farizによって作成。まだ開発中です！",
+        support: "サポート ▼",
+        reset: "チャットをリセット",
+        footer: "制作：<b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇯🇵",
+        error: "接続エラー。",
+        fail: "申し訳ありませんが、回答できません。"
+      },
+      ru: {
+        welcome: "Добро пожаловать в <span style='color:#00d9ff'>ENTERPRISE</span>",
+        send: "Отправить",
+        placeholder: "Введите ваш вопрос здесь...",
+        start: "Привет! Я Прайс. Чем могу помочь?",
+        about: "О SkyAI ▼",
+        version: "AI-Enterprise версия 1.0.",
+        dev: "Создано M.Fariz. Пока в разработке!",
+        support: "Поддержка ▼",
+        reset: "Сбросить чат",
+        footer: "Создано <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇷🇺",
+        error: "Ошибка соединения.",
+        fail: "Извините, я не могу ответить."
+      },
+      zh: {
+        welcome: "欢迎来到 <span style='color:#00d9ff'>ENTERPRISE</span>",
+        send: "发送",
+        placeholder: "在此输入你的问题...",
+        start: "你好！我是Prise，我能帮你什么？",
+        about: "关于 SkyAI ▼",
+        version: "AI-Enterprise 版本 1.0.",
+        dev: "由 M.Fariz 创建，仍在开发中！",
+        support: "支持 ▼",
+        reset: "重置聊天",
+        footer: "由<b>RIZ-ENTERPRISE</b>创建 | © 2025 SKY.AI INDONESIAN🇨🇳",
+        error: "连接错误。",
+        fail: "对不起，我无法回答。"
+      }
+    };
+
+    function updateUI() {
+      document.getElementById("welcome-text").innerHTML = translations[language].welcome;
+      document.getElementById("send-btn").innerText = translations[language].send;
+      document.getElementById("userInput").placeholder = translations[language].placeholder;
+      document.getElementById("about-label").innerText = translations[language].about;
+      document.getElementById("about-version").innerText = translations[language].version;
+      document.getElementById("about-dev").innerText = translations[language].dev;
+      document.getElementById("support-label").innerText = translations[language].support;
+      document.getElementById("reset-label").innerText = translations[language].reset;
+      document.getElementById("footer-text").innerHTML = translations[language].footer;
+    }
 
     window.addEventListener("load", () => {
       setTimeout(() => {
         document.getElementById("splash-screen").style.display = 'none';
         document.getElementById("main-content").style.display = 'block';
         startSkyAIChat();
+        updateUI();
       }, 3000);
     });
 
@@ -157,7 +236,7 @@
 
     function setLanguage(lang) {
       language = lang;
-      alert(lang === 'id' ? 'Bahasa diubah ke Indonesia' : 'Language switched to English');
+      updateUI();
       resetChat();
     }
 
@@ -168,9 +247,7 @@
 
     function startSkyAIChat() {
       const log = document.getElementById("chatlogs");
-      const msg = language === 'id'
-        ? "Hai! Aku Prise, ada yang bisa aku bantu?"
-        : "Hi! I'm Prise, how can I assist you?";
+      const msg = translations[language].start;
       log.innerHTML += `<p><b>ENTERPRISE:</b> ${msg}</p>`;
     }
 
@@ -194,17 +271,12 @@
           })
         });
         const data = await res.json();
-        const output = data.text || (language === 'id'
-          ? "Maaf, tidak bisa menjawab."
-          : "Sorry, I can't answer that.");
+        const output = data.text || translations[language].fail;
         log.innerHTML += `<p><b>Enterprise:</b> ${output}</p>`;
       } catch {
-        log.innerHTML += `<p><b>Enterprise:</b> ${language === 'id'
-          ? "Terjadi kesalahan koneksi."
-          : "Connection error."}</p>`;
+        log.innerHTML += `<p><b>Enterprise:</b> ${translations[language].error}</p>`;
       }
       document.getElementById("userInput").value = '';
     }
-  </script>
-</body>
-</html>
+  </script></body>
+  </html>
