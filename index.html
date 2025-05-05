@@ -30,8 +30,7 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: #000;
-      color: #fff;
+      background: #000;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -39,105 +38,52 @@
       z-index: 9999;
       animation: fadeOut 3s ease-in-out forwards;
     }
-    .splash-logo {
-      width: 100px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-    .fade-text {
-      font-size: 1.5rem;
-      margin-top: 20px;
-      animation: fadeInUp 2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; display: none; }
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem;
-      align-items: center;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo img {
-      height: 20px;
-    }
-    .settings-icon {
-      font-size: 24px;
-      cursor: pointer;
-      margin-right: 10px;
-    }
+    .splash-logo { width: 100px; animation: fadeIn 1.5s ease-in-out; }
+    .fade-text { font-size: 1.5rem; margin-top: 20px; animation: fadeInUp 2s ease-in-out; }
+    @keyframes fadeIn { 0% { opacity:0; transform:scale(0.8);} 100%{opacity:1;transform:scale(1);} }
+    @keyframes fadeInUp { 0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
+    @keyframes fadeOut { 0%{opacity:1;}100%{opacity:0;display:none;} }
+    header { display:flex; justify-content:space-between; padding:1rem; align-items:center; }
+    .logo { display:flex; align-items:center; gap:10px; }
+    .logo img { height:20px; }
+    .settings-icon { font-size:24px; cursor:pointer; margin-right:10px; }
     .settings-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      right: 20px;
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 10px;
-      z-index: 1000;
-      width: 200px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      display:none;
+      position:absolute; top:60px; right:20px;
+      background:#111; border:1px solid #333; border-radius:10px;
+      padding:10px; width:220px; box-shadow:0 0 10px rgba(0,0,0,0.5);
+      z-index:1000;
     }
     .settings-menu p {
-      margin: 10px 0;
-      cursor: pointer;
-      padding: 5px;
-      border-radius: 5px;
+      margin:8px 0; cursor:pointer; padding:5px; border-radius:5px;
+      display:flex; justify-content:space-between; align-items:center;
     }
-    .settings-menu p:hover {
-      background-color: #222;
+    .settings-menu p:hover { background:#222; }
+    .settings-submenu {
+      display:none; margin-top:5px; padding-left:10px;
     }
-    .center {
-      text-align: center;
-      margin-top: 40px;
+    .settings-submenu a, .settings-submenu p {
+      display:block; padding:4px 0; color:#00d9ff; text-decoration:none;
     }
+    .settings-submenu a:hover { text-decoration:underline; }
+    .center { text-align:center; margin-top:40px; }
     .chatbox {
-      background: #111;
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 20px auto;
-      max-width: 500px;
+      background:#111; border-radius:10px; padding:1rem;
+      margin:20px auto; max-width:500px;
     }
     .chatbox input {
-      width: 80%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
+      width:80%; padding:10px; border-radius:5px; border:none;
     }
     .chatbox button {
-      padding: 10px;
-      background: #00d9ff;
-      color: black;
-      border: none;
-      border-radius: 5px;
+      padding:10px; background:#00d9ff; color:black; border:none; border-radius:5px;
     }
-    .chatlogs {
-      margin-top: 10px;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 12px;
-    }
+    .chatlogs { margin-top:10px; }
+    .footer { text-align:center; margin-top:3rem; font-size:12px; }
   </style>
 </head>
 <body>
   <div id="splash-screen">
-    <img src="logo.png" alt="SkyAI Logo" class="splash-logo" />
+    <img src="logo.png" alt="SkyAI Logo" class="splash-logo"/>
     <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">SKY.AI</span></h1>
   </div>
 
@@ -151,10 +97,25 @@
     </header>
 
     <div id="settings-menu" class="settings-menu">
-      <p onclick="changeLanguage()">Pilih Bahasa</p>
-      <p onclick="showAbout()">Tentang SkyAI</p>
+      <p onclick="toggleSubmenu('lang')">Pilih Bahasa ▼</p>
+      <div id="lang" class="settings-submenu">
+        <p onclick="setLanguage('id')">Indonesian</p>
+        <p onclick="setLanguage('en')">English</p>
+      </div>
+
+      <p onclick="toggleSubmenu('about')">Tentang SkyAI ▼</p>
+      <div id="about" class="settings-submenu">
+        <p>SkyAI versi 1.0</p>
+        <p>Dibuat oleh M.Fariz</p>
+      </div>
+
+      <p onclick="toggleSubmenu('support')">Support ▼</p>
+      <div id="support" class="settings-submenu">
+        <a href="mailto:rizzenterprise01@gmail.com">Email: rizzenterprise01@gmail.com</a>
+        <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
+      </div>
+
       <p onclick="resetChat()">Reset Chat</p>
-      <p onclick="showSupport()">Support</p>
     </div>
 
     <div class="center">
@@ -169,7 +130,7 @@
     </div>
 
     <div class="footer">
-      Dibuat oleh <b> RIZ-ENTERPRISE </b> | © 2025 SKY.AI INDONESIAN🇮🇩
+      Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
     </div>
   </div>
 
@@ -178,65 +139,72 @@
 
     window.addEventListener("load", () => {
       setTimeout(() => {
-        document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
+        document.getElementById("splash-screen").style.display = 'none';
+        document.getElementById("main-content").style.display = 'block';
         startSkyAIChat();
       }, 3000);
     });
+
+    function toggleSettings() {
+      const menu = document.getElementById("settings-menu");
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleSubmenu(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function setLanguage(lang) {
+      language = lang;
+      alert(lang === 'id' ? 'Bahasa diubah ke Indonesia' : 'Language switched to English');
+      resetChat();
+    }
+
+    function resetChat() {
+      document.getElementById("chatlogs").innerHTML = '';
+      startSkyAIChat();
+    }
+
+    function startSkyAIChat() {
+      const log = document.getElementById("chatlogs");
+      const msg = language === 'id'
+        ? "Hai! Aku SkyAI, ada yang bisa aku bantu?"
+        : "Hi! I'm SkyAI, how can I assist you?";
+      log.innerHTML += `<p><b>SKY.AI:</b> ${msg}</p>`;
+    }
 
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
       const log = document.getElementById("chatlogs");
       log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
-
-      const res = await fetch("https://api.cohere.ai/v1/chat", {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "command-r-plus",
-          message: input,
-          temperature: 0.9,
-          chat_history: [],
-          prompt_truncation: "auto"
-        })
-      });
-      const data = await res.json();
-      const output = data.text || (language === 'id' ? "Maaf, tidak bisa menjawab." : "Sorry, I can't answer that.");
-      log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
-      document.getElementById("userInput").value = "";
-    }
-
-    function startSkyAIChat() {
-      const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>SKY.AI:</b> ${language === 'id' ? "Hai! Aku SkyAI, ada yang bisa aku bantu?" : "Hi! I'm SkyAI, how can I assist you?"}</p>`;
-    }
-
-    function toggleSettings() {
-      const menu = document.getElementById("settings-menu");
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-
-    function changeLanguage() {
-      language = (language === 'id') ? 'en' : 'id';
-      alert(`${language === 'id' ? 'Bahasa diubah ke Indonesia' : 'Language switched to English'}`);
-      resetChat();
-    }
-
-    function showAbout() {
-      alert("SkyAI versi 1.0\nDibuat oleh M.Fariz\nChatbot AI buatan anak Indonesia.");
-    }
-
-    function resetChat() {
-      document.getElementById("chatlogs").innerHTML = "";
-      startSkyAIChat();
-    }
-
-    function showSupport() {
-      alert("Untuk bantuan, hubungi: skyai.support@gmail.com\nAtau kunjungi: github.com/Fariiz011/Router");
+      try {
+        const res = await fetch("https://api.cohere.ai/v1/chat", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: "command-r-plus",
+            message: input,
+            temperature: 0.7,
+            chat_history: [],
+            prompt_truncation: "auto"
+          })
+        });
+        const data = await res.json();
+        const output = data.text || (language === 'id'
+          ? "Maaf, tidak bisa menjawab."
+          : "Sorry, I can't answer that.");
+        log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
+      } catch {
+        log.innerHTML += `<p><b>SKY.AI:</b> ${language === 'id'
+          ? "Terjadi kesalahan koneksi."
+          : "Connection error."}</p>`;
+      }
+      document.getElementById("userInput").value = '';
     }
   </script>
 </body>
-  </html>
+</html>
