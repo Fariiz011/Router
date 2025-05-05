@@ -1,86 +1,178 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
-  <!-- [Kepala sama persis seperti yang kamu kirim — tidak diubah] -->
-  <!-- ... potongan bagian head kamu tetap di sini ... -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkyAI - Chatbot AI Buatan Anak Keren</title>  <!-- META TAG START -->  <meta name="title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta name="description" content="SkyAI adalah chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran dengan gaya santai dan pintar.">
+  <meta name="author" content="M.Fariz">
+  <meta name="keywords" content="chatbot AI Indonesia, SkyAI, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">
+  <meta name="google-site-verification" content="google5cb917f02066c7ea.html" />  <!-- Open Graph -->  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fariiz011.github.io/Router">
+  <meta property="og:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta property="og:description" content="Chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran secara cerdas dan santai.">
+  <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">  <!-- Twitter Card -->  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://fariiz011.github.io/Router">
+  <meta property="twitter:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta property="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
+  <meta property="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
+  <!-- META TAG END -->  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quantico', sans-serif;
+      background-color: #000;
+      color: #fff;
+      transition: background 0.3s, color 0.3s;
+    }
+    #splash-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: black;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeOut 3s ease-in-out forwards;
+    }
+    .splash-logo {
+      width: 100px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .fade-text {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      animation: fadeInUp 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo img {
+  height: 20px;
+}
+.settings-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.settings-menu {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1000;
+  width: 200px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.settings-menu p {
+  margin: 10px 0;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+}
+.settings-menu p:hover {
+  background-color: #222;
+}
+
+.center {
+  text-align: center;
+  margin-top: 40px;
+}
+.chatbox {
+  background: #111;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 20px auto;
+  max-width: 500px;
+  position: relative;
+}
+.chatbox input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+.chatbox button {
+  padding: 10px;
+  background: #00d9ff;
+  color: black;
+  border: none;
+  border-radius: 5px;
+}
+.chatlogs {
+  margin-top: 10px;
+}
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 12px;
+}
+
+  </style>
 </head>
 <body>
   <!-- Splash Screen -->
   <div id="splash-screen">
     <img src="logo.png" alt="SkyAI Logo" class="splash-logo" />
     <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">SKY.AI</span></h1>
-  </div>
-
-  <!-- Main Content -->
-  <div id="main-content" style="display:none;">
+  </div>  <!-- Main Content -->  <div id="main-content" style="display:none;">
     <header>
       <div class="logo">
-        <img id="flag-icon" src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
-        <b id="lang-code">(IDN)</b>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
+        <b>(IDN)</b>
       </div>
       <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
-    </header>
+    </header><!-- Settings Popup -->
+<div id="settings-menu" class="settings-menu">
+  <p onclick="toggleTheme()">Ganti Tema</p>
+  <p onclick="changeLanguage()">Pilih Bahasa</p>
+  <p onclick="showAbout()">Tentang SkyAI</p>
+  <p onclick="resetChat()">Reset Chat</p>
+</div>
 
-    <!-- Settings Popup -->
-    <div id="settings-menu" class="settings-menu">
-      <p onclick="toggleTheme()" id="toggle-theme-label">Ganti Tema</p>
-      <p onclick="changeLanguage()" id="change-lang-label">Pilih Bahasa</p>
-      <p onclick="showAbout()" id="about-label">Tentang SkyAI</p>
-      <p onclick="resetChat()" id="reset-label">Reset Chat</p>
-    </div>
+<div class="center">
+  <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
+  <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
+</div>
 
-    <div class="center">
-      <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
-      <h1 id="welcome-text">Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
-    </div>
+<div class="chatbox">
+  <div class="chatlogs" id="chatlogs"></div>
+  <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
+  <button onclick="sendMessage()">Kirim</button>
+</div>
 
-    <div class="chatbox">
-      <div class="chatlogs" id="chatlogs"></div>
-      <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
-      <button onclick="sendMessage()" id="send-button">Kirim</button>
-    </div>
+<div class="footer">
+  Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩
+</div>
 
-    <div class="footer" id="footer-text">
-      Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩
-    </div>
-  </div>
-
-  <script>
+  </div>  <script>
     let darkMode = false;
-    let language = 'id'; // default language
-
-    const texts = {
-      id: {
-        welcome: "Welcome to <span style='color:#00d9ff'>SKY.AI</span>",
-        send: "Kirim",
-        theme: "Ganti Tema",
-        lang: "Pilih Bahasa",
-        about: "Tentang SkyAI",
-        reset: "Reset Chat",
-        footer: "Dibuat oleh <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
-        splash: "Welcome to <span style='color:#00d9ff;'>SKY.AI</span>",
-        prompt: "Tulis pertanyaan di sini...",
-        alert: "Bahasa diubah ke Indonesia",
-        flag: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg",
-        code: "(IDN)",
-        hi: "Hai! Aku SkyAI, ada yang bisa aku bantu?"
-      },
-      en: {
-        welcome: "Welcome to <span style='color:#00d9ff'>SKY.AI</span>",
-        send: "Send",
-        theme: "Toggle Theme",
-        lang: "Change Language",
-        about: "About SkyAI",
-        reset: "Reset Chat",
-        footer: "Made by <b>SkyAI Dev (M.Fariz)</b> | © 2025 SKY.AI INDONESIA🇮🇩",
-        splash: "Welcome to <span style='color:#00d9ff;'>SKY.AI</span>",
-        prompt: "Type your question here...",
-        alert: "Language changed to English",
-        flag: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
-        code: "(ENG)",
-        hi: "Hi! I'm SkyAI, how can I help you?"
-      }
-    };
+    let language = 'id'; // default language (id = Indonesia)
 
     window.addEventListener("load", () => {
       setTimeout(() => {
@@ -117,7 +209,7 @@
 
     function startSkyAIChat() {
       const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>SKY.AI:</b> ${texts[language].hi}</p>`;
+      log.innerHTML += `<p><b>SKY.AI:</b> Hai! Aku SkyAI, ada yang bisa aku bantu?</p>`;
     }
 
     function toggleSettings() {
@@ -133,18 +225,7 @@
 
     function changeLanguage() {
       language = (language === 'id') ? 'en' : 'id';
-      alert(texts[language].alert);
-
-      document.getElementById("welcome-text").innerHTML = texts[language].welcome;
-      document.getElementById("send-button").innerText = texts[language].send;
-      document.getElementById("toggle-theme-label").innerText = texts[language].theme;
-      document.getElementById("change-lang-label").innerText = texts[language].lang;
-      document.getElementById("about-label").innerText = texts[language].about;
-      document.getElementById("reset-label").innerText = texts[language].reset;
-      document.getElementById("footer-text").innerHTML = texts[language].footer;
-      document.getElementById("userInput").placeholder = texts[language].prompt;
-      document.getElementById("flag-icon").src = texts[language].flag;
-      document.getElementById("lang-code").innerText = texts[language].code;
+      alert(`Bahasa diubah ke ${language === 'id' ? 'Indonesia' : 'English'}`);
     }
 
     function showAbout() {
@@ -155,6 +236,5 @@
       document.getElementById("chatlogs").innerHTML = "";
       startSkyAIChat();
     }
-  </script>
-</body>
-</html>
+  </script></body>
+  </html>
