@@ -111,6 +111,12 @@
     <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
   </div>
   <p onclick="resetChat()" id="reset-label">Reset Chat</p>
+  <p onclick="toggleSubmenu('profile')" id="profile-label">Pengaturan Profil ▼</p>
+<div id="profile" class="settings-submenu">
+  <p>Nama: <input type="text" id="profile-name" placeholder="Masukkan nama..."></p>
+  <p>Tanggal Lahir: <input type="date" id="profile-birthdate"></p>
+  <p>Avatar: <input type="file" id="profile-avatar" accept="image/*"></p>
+  <button onclick="saveProfile()">Simpan Profil</button>
 </div>
 
 <div class="center">
@@ -243,7 +249,52 @@
     function resetChat() {
       document.getElementById("chatlogs").innerHTML = '';
       startSkyAIChat();
-    }
+    let userProfile = {
+    name: '',
+    birthdate: '',
+    avatar: ''
+  }
+
+   // Fungsi untuk menyimpan data profil
+   function saveProfile() {
+  const name = document.getElementById('profile-name').value;
+  const birthdate = document.getElementById('profile-birthdate').value;
+  const avatarInput = document.getElementById('profile-avatar');
+  
+  // Jika ada avatar yang dipilih, simpan URL data avatar
+  let avatarURL = '';
+  if (avatarInput.files.length > 0) {
+    const file = avatarInput.files[0];
+    avatarURL = URL.createObjectURL(file);
+  }
+  
+  // Simpan ke dalam objek profil
+  userProfile.name = name;
+  userProfile.birthdate = birthdate;
+  userProfile.avatar = avatarURL;
+
+  // Tampilkan profil di halaman
+  updateProfileDisplay();
+}
+
+// Fungsi untuk memperbarui tampilan profil di halaman
+function updateProfileDisplay() {
+  const profileSection = document.getElementById('main-content');
+  
+  // Menampilkan nama, tanggal lahir, dan avatar di tampilan utama
+  let profileHTML = `<p>Nama: ${userProfile.name}</p>`;
+  profileHTML += `<p>Tanggal Lahir: ${userProfile.birthdate}</p>`;
+  
+  if (userProfile.avatar) {
+    profileHTML += `<p><img src="${userProfile.avatar}" alt="Avatar" style="width: 100px; height: 100px;"></p>`;
+  }
+  
+  profileSection.innerHTML = profileHTML;
+}
+
+// Menambahkan tombol "Profil" di header untuk mengakses pengaturan profil
+const settingsMenu = document.getElementById('settings-menu');
+settingsMenu.insertAdjacentHTML('beforeend', `<p onclick="toggleSubmenu('profile')" id="profile-label">Pengaturan Profil ▼</p>`);
 
     function startSkyAIChat() {
       const log = document.getElementById("chatlogs");
