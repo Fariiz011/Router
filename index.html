@@ -4,6 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SkyAI - Chatbot AI Buatan Anak Keren</title>
+  <!-- META TAG START -->
+  <meta name="title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta name="description" content="SkyAI adalah chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran dengan gaya santai dan pintar.">
+  <meta name="author" content="M.Fariz">
+  <meta name="keywords" content="chatbot AI Indonesia, SkyAI, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">
+  <meta name="google-site-verification" content="google5cb917f02066c7ea.html" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fariiz011.github.io/Router">
+  <meta property="og:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta property="og:description" content="Chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran secara cerdas dan santai.">
+  <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">
+  <!-- Twitter Card -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://fariiz011.github.io/Router">
+  <meta property="twitter:title" content="SkyAI - Chatbot AI Buatan Anak Keren">
+  <meta property="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
+  <meta property="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
+  <!-- META TAG END -->
   <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,8 +30,9 @@
       font-family: 'Quantico', sans-serif;
       background-color: #000;
       color: #fff;
+      transition: background 0.3s, color 0.3s;
     }
-    #splash-screen, #profile-form {
+    #splash-screen {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
@@ -23,6 +43,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      animation: fadeOut 3s ease-in-out forwards;
     }
     .splash-logo {
       width: 100px;
@@ -41,19 +62,9 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    #profile-form input {
-      margin: 5px;
-      padding: 8px;
-      border-radius: 5px;
-      border: none;
-    }
-    #profile-form button {
-      padding: 8px 20px;
-      border: none;
-      background: #00d9ff;
-      color: black;
-      border-radius: 5px;
-      margin-top: 10px;
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; display: none; }
     }
     header {
       display: flex;
@@ -66,14 +77,47 @@
       align-items: center;
       gap: 10px;
     }
-    .logo img { height: 20px; }
-    .center { text-align: center; margin-top: 40px; }
+    .logo img {
+      height: 20px;
+    }
+    .settings-icon {
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .settings-menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 10px;
+      z-index: 1000;
+      width: 200px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .settings-menu p {
+      margin: 10px 0;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    .settings-menu p:hover {
+      background-color: #222;
+    }
+    .center {
+      text-align: center;
+      margin-top: 40px;
+    }
     .chatbox {
       background: #111;
       border-radius: 10px;
       padding: 1rem;
       margin: 20px auto;
       max-width: 500px;
+      position: relative;
     }
     .chatbox input {
       width: 80%;
@@ -88,49 +132,73 @@
       border: none;
       border-radius: 5px;
     }
+    .chatlogs {
+      margin-top: 10px;
+    }
     .footer {
       text-align: center;
-      margin-top: 2rem;
+      margin-top: 3rem;
       font-size: 12px;
     }
-    #profil-info {
-      text-align: center;
-      font-size: 14px;
-      margin-top: -15px;
-      color: #aaa;
+    #profile-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    #profile-form input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 80%;
+    }
+    #profile-form button {
+      padding: 10px;
+      background: #00d9ff;
+      color: black;
+      border: none;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <!-- Splash -->
+  <!-- Splash Screen -->
   <div id="splash-screen">
     <img src="logo.png" alt="SkyAI Logo" class="splash-logo" />
     <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">SKY.AI</span></h1>
   </div>
 
-  <!-- Profil Form -->
+  <!-- Profile Form -->
   <div id="profile-form" style="display:none;">
-    <h2>Isi Profil Kamu</h2>
-    <input type="text" id="nama" placeholder="Nama">
-    <input type="text" id="kelas" placeholder="Kelas">
-    <input type="number" id="umur" placeholder="Umur">
-    <input type="text" id="lokasi" placeholder="Lokasi">
-    <button onclick="submitProfil()">Mulai Chat</button>
+    <h2>Silakan Isi Profil Anda</h2>
+    <input type="text" id="name" placeholder="Nama Lengkap" />
+    <input type="text" id="class" placeholder="Kelas" />
+    <input type="number" id="age" placeholder="Umur" />
+    <input type="text" id="location" placeholder="Lokasi" />
+    <button onclick="saveProfile()">Simpan Profil</button>
   </div>
 
-  <!-- Main -->
+  <!-- Main Content -->
   <div id="main-content" style="display:none;">
     <header>
       <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag"/>
         <b>(IDN)</b>
       </div>
+      <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
     </header>
+
+    <!-- Settings Popup -->
+    <div id="settings-menu" class="settings-menu">
+      <p onclick="toggleTheme()">Ganti Tema</p>
+      <p onclick="changeLanguage()">Pilih Bahasa</p>
+      <p onclick="showAbout()">Tentang SkyAI</p>
+      <p onclick="resetChat()">Reset Chat</p>
+    </div>
 
     <div class="center">
       <img src="logo.png" alt="SkyAI Logo" style="width:120px"/>
       <h1>Welcome to <span style="color:#00d9ff">SKY.AI</span></h1>
-      <div id="profil-info"></div>
     </div>
 
     <div class="chatbox">
@@ -145,27 +213,37 @@
   </div>
 
   <script>
-    let profil = {};
-    window.onload = () => {
+    let darkMode = false;
+    let language = 'id'; // default language (id = Indonesia)
+
+    window.addEventListener("load", () => {
       setTimeout(() => {
         document.getElementById("splash-screen").style.display = "none";
-        document.getElementById("profile-form").style.display = "flex";
+        document.getElementById("profile-form").style.display = "block";
       }, 3000);
-    };
-    function submitProfil() {
-      profil.nama = document.getElementById("nama").value;
-      profil.kelas = document.getElementById("kelas").value;
-      profil.umur = document.getElementById("umur").value;
-      profil.lokasi = document.getElementById("lokasi").value;
-      document.getElementById("profile-form").style.display = "none";
-      document.getElementById("main-content").style.display = "block";
-      document.getElementById("profil-info").innerText = `Profil: ${profil.nama} | ${profil.kelas} | ${profil.umur} Tahun | ${profil.lokasi}`;
-      startSkyAIChat();
+    });
+
+    function saveProfile() {
+      const name = document.getElementById("name").value;
+      const userClass = document.getElementById("class").value;
+      const age = document.getElementById("age").value;
+      const location = document.getElementById("location").value;
+
+      if (name && userClass && age && location) {
+        localStorage.setItem("profile", JSON.stringify({ name, userClass, age, location }));
+        document.getElementById("profile-form").style.display = "none";
+        document.getElementById("main-content").style.display = "block";
+        startSkyAIChat();
+      } else {
+        alert("Semua field harus diisi!");
+      }
     }
+
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
       const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>${profil.nama || "Kamu"}:</b> ${input}</p>`;
+      log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
+
       const res = await fetch("https://api.cohere.ai/v1/chat", {
         method: "POST",
         headers: {
@@ -181,13 +259,41 @@
         })
       });
       const data = await res.json();
-      const output = data.text || "Maaf, tidak bisa menjawab.";
+      const output = data.text || (language === 'id' ? "Maaf, tidak bisa menjawab." : "Sorry, I can't answer that.");
       log.innerHTML += `<p><b>SKY.AI:</b> ${output}</p>`;
       document.getElementById("userInput").value = "";
     }
+
     function startSkyAIChat() {
-      document.getElementById("chatlogs").innerHTML = `<p><b>SKY.AI:</b> Hai ${profil.nama || "kamu"}! Ada yang bisa aku bantu?</p>`;
+      const log = document.getElementById("chatlogs");
+      log.innerHTML += `<p><b>SKY.AI:</b> ${language === 'id' ? "Hai! Aku SkyAI, ada yang bisa aku bantu?" : "Hi! I'm SkyAI, how can I assist you?"}</p>`;
+    }
+
+    function toggleSettings() {
+      const menu = document.getElementById("settings-menu");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      document.body.style.backgroundColor = darkMode ? "#222" : "#000";
+      document.body.style.color = darkMode ? "#fff" : "#000";
+    }
+
+    function changeLanguage() {
+      language = (language === 'id') ? 'en' : 'id';
+      alert(`${language === 'id' ? 'Bahasa diubah ke Indonesia' : 'Language switched to English'}`);
+      resetChat();
+    }
+
+    function showAbout() {
+      alert("SkyAI versi 1.0\nDibuat oleh M.Fariz\nChatbot AI buatan anak Indonesia.");
+    }
+
+    function resetChat() {
+      document.getElementById("chatlogs").innerHTML = "";
+      startSkyAIChat();
     }
   </script>
 </body>
-</html>
+  </html>
