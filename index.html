@@ -20,28 +20,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
   <style>
     body {
-       <!-- Profil Popup -->
-<div id="profilePopup" class="popup hidden">
-  <h2>Atur Profil</h2>
-  <label>Nama:
-    <input type="text" id="profileName" placeholder="Nama Anda">
-  </label>
-  <label>Tanggal Lahir:
-    <input type="date" id="profileDob">
-  </label>
-  <label>Pilih Avatar:</label>
-  <div id="avatarSelection" class="avatar-list">
-    <!-- Avatar gambar (nanti kita isi via JS atau langsung HTML) -->
-  </div>
-  <button onclick="saveProfile()">Simpan</button>
-  <button onclick="closeProfilePopup()">Batal</button>
-</div>
-
-<!-- Profil Tampil di Kiri Atas -->
-<div id="userProfileDisplay" class="user-profile hidden">
-  <img id="userAvatar" src="" alt="Avatar">
-  <span id="userNameDisplay">Nama</span>
-</div>
       margin: 0;
       font-family: 'Quantico', sans-serif;
       background-color: #000;
@@ -134,28 +112,7 @@
   </div>
   <p onclick="resetChat()" id="reset-label">Reset Chat</p>
 </div>
-<!-- Profil Popup -->
-<div id="profilePopup" class="popup hidden">
-  <h2>Atur Profil</h2>
-  <label>Nama:
-    <input type="text" id="profileName" placeholder="Nama Anda">
-  </label>
-  <label>Tanggal Lahir:
-    <input type="date" id="profileDob">
-  </label>
-  <label>Pilih Avatar:</label>
-  <div id="avatarSelection" class="avatar-list">
-    <!-- Avatar gambar (nanti kita isi via JS atau langsung HTML) -->
-  </div>
-  <button onclick="saveProfile()">Simpan</button>
-  <button onclick="closeProfilePopup()">Batal</button>
-</div>
 
-<!-- Profil Tampil di Kiri Atas -->
-<div id="userProfileDisplay" class="user-profile hidden">
-  <img id="userAvatar" src="" alt="Avatar">
-  <span id="userNameDisplay">Nama</span>
-</div>
 <div class="center">
   <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
   <h1 id="welcome-text">Welcome to <span style="color:#00d9ff">ENTERPRISE</span></h1>
@@ -171,57 +128,7 @@
   Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
 </div>
 
-  </div>
-  <script>
-// Gambar avatar (ganti path-nya sesuai lokasi kamu di repo)
-const avatarImages = [
-  "avatar1.jpeg", "avatar2.jpeg", "avatar3.jpeg",
-  "avatar4.jpeg", "avatar5.jpeg", "avatar6.jpeg"
-];
-
-// Tampilkan avatar pilihan
-const avatarContainer = document.getElementById("avatarSelection");
-let selectedAvatar = "";
-
-avatarImages.forEach(src => {
-  const img = document.createElement("img");
-  img.src = src;
-  img.onclick = () => {
-    document.querySelectorAll(".avatar-list img").forEach(i => i.classList.remove("selected"));
-    img.classList.add("selected");
-    selectedAvatar = src;
-  };
-  avatarContainer.appendChild(img);
-});
-
-// Buka/tutup popup
-function openProfilePopup() {
-  document.getElementById("profilePopup").classList.remove("hidden");
-}
-function closeProfilePopup() {
-  document.getElementById("profilePopup").classList.add("hidden");
-}
-
-// Simpan ke localStorage
-function saveProfile() {
-  const name = document.getElementById("profileName").value;
-  const dob = document.getElementById("profileDob").value;
-  if (!name || !selectedAvatar) return alert("Isi semua data dan pilih avatar.");
-  localStorage.setItem("userProfile", JSON.stringify({ name, dob, avatar: selectedAvatar }));
-  updateProfileDisplay();
-  closeProfilePopup();
-}
-
-// Update tampilan profil di kiri atas
-function updateProfileDisplay() {
-  const profile = JSON.parse(localStorage.getItem("userProfile"));
-  if (profile) {
-    document.getElementById("userNameDisplay").textContent = profile.name;
-    document.getElementById("userAvatar").src = profile.avatar;
-    document.getElementById("userProfileDisplay").classList.remove("hidden");
-  }
-}
-updateProfileDisplay(); // tampilkan saat halaman dibuka  
+  </div>  <script>
     let language = 'id';
     const translations = {
       id: {
