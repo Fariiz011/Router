@@ -86,6 +86,9 @@
     <h1 class="fade-text">Selamat Datang Di <span style="color:#00d9ff;">ENTERPRISE</span></h1>
   </div>  <div id="main-content" style="display:none;">
     <header>
+      <div style="text-align:right;padding:0 1rem;">
+    <img id="avatarDisplay" src="avatar1.jpeg" style="width:45px;height:45px;border-radius:50%;">
+      </div>
       <div class="logo">
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag" id="flag"/>
         <b id="lang-code">(IDN)</b>
@@ -112,7 +115,19 @@
   </div>
   <p onclick="resetChat()" id="reset-label">Reset Chat</p>
 </div>
-
+   <p onclick="toggleSubmenu('profile')">Profil Pengguna ▼</p>
+<div id="profile" class="settings-submenu">
+  <p>Nama: <span id="userName">Guest</span></p>
+  <p>Tanggal Lahir: <span id="birthDate">-</span></p>
+  <p>Avatar:</p>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;">
+    <img src="avatar1.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+    <img src="avatar2.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+    <img src="avatar3.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+    <img src="avatar4.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+    <img src="avatar5.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+    <img src="avatar6.jpeg" onclick="setAvatar(this.src)" style="width:40px;height:40px;border-radius:50%;cursor:pointer;">
+  </div>
 <div class="center">
   <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
   <h1 id="welcome-text">Welcome to <span style="color:#00d9ff">ENTERPRISE</span></h1>
@@ -126,9 +141,8 @@
 
 <div class="footer" id="footer-text">
   Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
-</div>
-
-  </div>  <script>
+</div>  
+  <script> 
     let language = 'id';
     const translations = {
       id: {
@@ -250,6 +264,18 @@
       const msg = translations[language].start;
       log.innerHTML += `<p><b>ENTERPRISE:</b> ${msg}</p>`;
     }
+
+    function setAvatar(src) {
+       document.getElementById('avatarDisplay').src = src;
+       localStorage.setItem('avatar', src);
+   }
+
+    window.onload = () => {
+    const savedAvatar = localStorage.getItem('avatar');
+    if (savedAvatar) {
+    document.getElementById('avatarDisplay').src = savedAvatar;
+   }
+
 
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
