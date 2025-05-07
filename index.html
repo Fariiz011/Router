@@ -1,283 +1,124 @@
 <!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI - Enterprise</title>
-  <!-- META TAG -->
-  <meta name="title" content="AI-Enterprise - Chatbot AI Buatan Anak Keren">
-  <meta name="description" content="AI Enterprise adalah chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran dengan gaya santai dan pintar.">
-  <meta name="author" content="(RIZZ ENTERPRISE) M.Fariz">
-  <meta name="keywords" content="chatbot AI Indonesia, Enterprise, belajar AI, chatbot pelajar, AI ringan, buatan anak Indonesia">
-  <meta property="og:url" content="https://fariiz011.github.io/Router">
-  <meta property="og:title" content="AI Enterprise - Chatbot AI Buatan Anak Keren">
-  <meta property="og:description" content="Chatbot AI ringan buatan anak Indonesia. Bisa bantu belajar berbagai pelajaran secara cerdas dan santai.">
-  <meta property="og:image" content="https://fariiz011.github.io/Router/logo.png">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI Enterprise - Chatbot AI Buatan Anak Keren">
-  <meta name="twitter:description" content="SkyAI adalah chatbot AI ringan yang bisa bantu belajar dengan gaya santai.">
-  <meta name="twitter:image" content="https://fariiz011.github.io/Router/logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChatBot Cohere Modern</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Quantico', sans-serif;
-      background-color: #000;
-      color: #fff;
-    }
-    #splash-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: fadeOut 3s ease-in-out forwards;
-    }
-    .splash-logo { width: 190px; animation: fadeIn 2s ease-in-out; }
-    .fade-text { font-size: 1.5rem; margin-top: 20px; animation: fadeInUp 1.5s ease-in-out; }
-    @keyframes fadeIn { 0% { opacity:0; transform:scale(0.8);} 100%{opacity:1;transform:scale(1);} }
-    @keyframes fadeInUp { 0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
-    @keyframes fadeOut { 0%{opacity:1;}100%{opacity:0;display:none;} }
-    header { display:flex; justify-content:space-between; padding:1rem; align-items:center; }
-    .logo { display:flex; align-items:center; gap:10px; }
-    .logo img { height:20px; }
-    .settings-icon { font-size:24px; cursor:pointer; margin-right:10px; }
-    .settings-menu {
-      display:none;
-      position:absolute; top:60px; right:20px;
-      background:#111; border:1px solid #333; border-radius:10px;
-      padding:10px; width:220px; box-shadow:0 0 10px rgba(0,0,0,0.5);
-      z-index:1000;
-    }
-    .settings-menu p {
-      margin:8px 0; cursor:pointer; padding:5px; border-radius:5px;
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .settings-menu p:hover { background:#222; }
-    .settings-submenu {
-      display:none; margin-top:5px; padding-left:10px;
-    }
-    .settings-submenu a, .settings-submenu p {
-      display:block; padding:4px 0; color:#00d9ff; text-decoration:none;
-    }
-    .settings-submenu a:hover { text-decoration:underline; }
-    .center { text-align:center; margin-top:40px; }
-    .chatbox {
-      background:#111; border-radius:10px; padding:1rem;
-      margin:20px auto; max-width:500px;
-    }
-    .chatbox input {
-      width:80%; padding:10px; border-radius:5px; border:none;
-    }
-    .chatbox button {
-      padding:10px; background:#00d9ff; color:black; border:none; border-radius:5px;
-    }
-    .chatlogs { margin-top:10px; }
-    .footer { text-align:center; margin-top:3rem; font-size:12px; }
+    body { @apply bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100; }
+    #chat-container { height: calc(100vh - 8rem); }
+    .chat-bubble { @apply max-w-xl px-4 py-2 rounded-2xl break-words; }
+    .bot { @apply bg-white dark:bg-gray-800 self-start; }
+    .user { @apply bg-blue-500 text-white self-end; }
+    .scroll-hide::-webkit-scrollbar { display: none; }
   </style>
 </head>
-<body>
-  <div id="splash-screen">
-    <img src="logo enterprise.png" alt="enterprise Logo" class="splash-logo"/>
-    <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">ENTERPRISE</span></h1>
-  </div>  <div id="main-content" style="display:none;">
-    <header>
-      <div class="logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Flag_of_Indonesia.svg" alt="Flag" id="flag"/>
-        <b id="lang-code">(IDN)</b>
+<body class="flex flex-col">
+  <!-- Header -->
+  <header class="h-16 flex items-center px-4 shadow-md bg-white dark:bg-gray-800 justify-between">
+    <div class="flex items-center">
+      <img src="logo.png" alt="Logo" class="h-8 w-8 mr-2" />
+      <h1 class="text-xl font-semibold">CohereChat</h1>
+    </div>
+    <button id="settingsBtn">
+      <img src="icon setting.png" alt="Settings" class="h-6 w-6" />
+    </button>
+  </header>  <!-- Chat area -->  <main id="chat-container" class="flex-1 overflow-y-auto p-4 flex flex-col space-y-4 scroll-hide">
+    <!-- messages injected here -->
+  </main>  <!-- Input area -->  <footer class="h-32 px-4 py-2 bg-white dark:bg-gray-800">
+    <div class="mb-2">
+      <textarea id="user-input" rows="2" class="w-full resize-none p-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-700 focus:outline-none" placeholder="Tulis pesan..."></textarea>
+    </div>
+    <div class="flex justify-between items-center">
+      <div>
+        <button id="faqBtn" class="text-sm text-blue-600 hover:underline">FAQ</button>
+        <button id="profileBtn" class="ml-2 text-sm text-blue-600 hover:underline">Profil</button>
+        <button id="supportBtn" class="ml-2 text-sm text-blue-600 hover:underline">Support</button>
+        <button id="gmailBtn" class="ml-2 text-sm text-blue-600 hover:underline">Kirim via Gmail</button>
+        <button id="langBtn" class="ml-2 text-sm text-blue-600 hover:underline">ID/EN</button>
       </div>
-      <div class="settings-icon" onclick="toggleSettings()">⚙️</div>
-    </header><div id="settings-menu" class="settings-menu">
-  <p onclick="toggleSubmenu('lang')">Pilih Bahasa ▼</p>
-  <div id="lang" class="settings-submenu">
-    <p onclick="setLanguage('id')">Indonesian🇮🇩</p>
-    <p onclick="setLanguage('en')">English🇬🇧</p>
-    <p onclick="setLanguage('ja')">日本語🇯🇵</p>
-    <p onclick="setLanguage('ru')">Русский🇷🇺</p>
-    <p onclick="setLanguage('zh')">中文🇨🇳</p>
-  </div>
-  <p onclick="toggleSubmenu('about')" id="about-label">Tentang SkyAI ▼</p>
-  <div id="about" class="settings-submenu">
-    <p id="about-version">AI-Enterprise versi 1.0.</p>
-    <p id="about-dev">Dibuat oleh M.Fariz AI Enterprise Ini Masih Tahap Pengembangan!</p>
-  </div>
-  <p onclick="toggleSubmenu('support')" id="support-label">Support ▼</p>
-  <div id="support" class="settings-submenu">
-    <a href="mailto:rizzenterprise01@gmail.com">Email: rizzenterprise01@gmail.com</a>
-    <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
-  </div>
-  <p onclick="resetChat()" id="reset-label">Reset Chat</p>
-</div>
+      <button id="send-btn" class="p-3 rounded-full bg-blue-600 hover:bg-blue-700">
+        <img src="icon kirim.png" alt="Kirim" class="h-5 w-5" />
+      </button>
+    </div>
+  </footer>  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const langBtn = document.getElementById('langBtn');
+    let isIndo = true;
+    const API_KEY = '<YOUR_COHERE_API_KEY>';
 
-<div class="center">
-  <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
-  <h1 id="welcome-text">Welcome to <span style="color:#00d9ff">ENTERPRISE</span></h1>
-</div>
-
-<div class="chatbox">
-  <div class="chatlogs" id="chatlogs"></div>
-  <input type="text" id="userInput" placeholder="Tulis pertanyaan di sini...">
-  <button onclick="sendMessage()" id="send-btn">Kirim</button>
-</div>
-
-<div class="footer" id="footer-text">
-  Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩
-</div>
-
-  </div>  <script>
-    let language = 'id';
-    const translations = {
-      id: {
-        welcome: "Welcome to <span style='color:#00d9ff'>ENTERPRISE</span>",
-        send: "Kirim",
-        placeholder: "Tulis pertanyaan di sini...",
-        start: "Hai! Aku Prise, ada yang bisa aku bantu?",
-        about: "Tentang SkyAI ▼",
-        version: "AI-Enterprise versi 1.0.",
-        dev: "Dibuat oleh M.Fariz AI Enterprise Ini Masih Tahap Pengembangan!",
-        support: "Support ▼",
-        reset: "Reset Chat",
-        footer: "Dibuat oleh <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
-        error: "Terjadi kesalahan koneksi.",
-        fail: "Maaf, tidak bisa menjawab."
-      },
-      en: {
-        welcome: "Welcome to <span style='color:#00d9ff'>ENTERPRISE</span>",
-        send: "Send",
-        placeholder: "Type your question here...",
-        start: "Hi! I'm Prise, how can I assist you?",
-        about: "About SkyAI ▼",
-        version: "AI-Enterprise version 1.0.",
-        dev: "Created by M.Fariz. This is still under development!",
-        support: "Support ▼",
-        reset: "Reset Chat",
-        footer: "Made by <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
-        error: "Connection error.",
-        fail: "Sorry, I can't answer that."
-      },
-      ja: {
-        welcome: "ようこそ <span style='color:#00d9ff'>ENTERPRISE</span>へ",
-        send: "送信",
-        placeholder: "ここに質問を入力してください...",
-        start: "こんにちは！私はプライスです。どうしましたか？",
-        about: "SkyAIについて ▼",
-        version: "AI-Enterprise バージョン 1.0.",
-        dev: "M.Farizによって作成。まだ開発中です！",
-        support: "サポート ▼",
-        reset: "チャットをリセット",
-        footer: "制作：<b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇯🇵",
-        error: "接続エラー。",
-        fail: "申し訳ありませんが、回答できません。"
-      },
-      ru: {
-        welcome: "Добро пожаловать в <span style='color:#00d9ff'>ENTERPRISE</span>",
-        send: "Отправить",
-        placeholder: "Введите ваш вопрос здесь...",
-        start: "Привет! Я Прайс. Чем могу помочь?",
-        about: "О SkyAI ▼",
-        version: "AI-Enterprise версия 1.0.",
-        dev: "Создано M.Fariz. Пока в разработке!",
-        support: "Поддержка ▼",
-        reset: "Сбросить чат",
-        footer: "Создано <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇷🇺",
-        error: "Ошибка соединения.",
-        fail: "Извините, я не могу ответить."
-      },
-      zh: {
-        welcome: "欢迎来到 <span style='color:#00d9ff'>ENTERPRISE</span>",
-        send: "发送",
-        placeholder: "在此输入你的问题...",
-        start: "你好！我是Prise，我能帮你什么？",
-        about: "关于 SkyAI ▼",
-        version: "AI-Enterprise 版本 1.0.",
-        dev: "由 M.Fariz 创建，仍在开发中！",
-        support: "支持 ▼",
-        reset: "重置聊天",
-        footer: "由<b>RIZ-ENTERPRISE</b>创建 | © 2025 SKY.AI INDONESIAN🇨🇳",
-        error: "连接错误。",
-        fail: "对不起，我无法回答。"
-      }
-    };
-
-    function updateUI() {
-      document.getElementById("welcome-text").innerHTML = translations[language].welcome;
-      document.getElementById("send-btn").innerText = translations[language].send;
-      document.getElementById("userInput").placeholder = translations[language].placeholder;
-      document.getElementById("about-label").innerText = translations[language].about;
-      document.getElementById("about-version").innerText = translations[language].version;
-      document.getElementById("about-dev").innerText = translations[language].dev;
-      document.getElementById("support-label").innerText = translations[language].support;
-      document.getElementById("reset-label").innerText = translations[language].reset;
-      document.getElementById("footer-text").innerHTML = translations[language].footer;
-    }
-
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("splash-screen").style.display = 'none';
-        document.getElementById("main-content").style.display = 'block';
-        startSkyAIChat();
-        updateUI();
-      }, 3000);
-    });
-
-    function toggleSettings() {
-      const menu = document.getElementById("settings-menu");
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function toggleSubmenu(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function setLanguage(lang) {
-      language = lang;
-      updateUI();
-      resetChat();
-    }
-
-    function resetChat() {
-      document.getElementById("chatlogs").innerHTML = '';
-      startSkyAIChat();
-    }
-
-    function startSkyAIChat() {
-      const log = document.getElementById("chatlogs");
-      const msg = translations[language].start;
-      log.innerHTML += `<p><b>ENTERPRISE:</b> ${msg}</p>`;
+    function addMessage(text, sender) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'flex ' + (sender === 'user' ? 'justify-end' : 'justify-start');
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${sender === 'user' ? 'user' : 'bot'}`;
+      bubble.textContent = text;
+      wrapper.appendChild(bubble);
+      chatContainer.appendChild(wrapper);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
     async function sendMessage() {
-      const input = document.getElementById("userInput").value;
-      const log = document.getElementById("chatlogs");
-      log.innerHTML += `<p><b>Kamu:</b> ${input}</p>`;
+      const text = userInput.value.trim();
+      if (!text) return;
+      addMessage(text, 'user');
+      userInput.value = '';
+      addMessage('...', 'bot');
+
+      const prompt = isIndo ? `Balas dalam bahasa Indonesia: ${text}` : text;
+
       try {
-        const res = await fetch("https://api.cohere.ai/v1/chat", {
-          method: "POST",
+        const resp = await fetch('https://api.cohere.ai/generate', {
+          method: 'POST',
           headers: {
-            "Authorization": "Bearer 2gqZ5aa5e0E3dTTtd2O8sUJgW67nBiSPrpBVGKT6",
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_KEY}`
           },
           body: JSON.stringify({
-            model: "command-r-plus",
-            message: input,
-            temperature: 0.7,
-            chat_history: [],
-            prompt_truncation: "auto"
+            model: 'xlarge',
+            prompt: prompt,
+            max_tokens: 150,
+            temperature: 0.7
           })
         });
-        const data = await res.json();
-        const output = data.text || translations[language].fail;
-        log.innerHTML += `<p><b>Enterprise:</b> ${output}</p>`;
-      } catch {
-        log.innerHTML += `<p><b>Enterprise:</b> ${translations[language].error}</p>`;
+        const data = await resp.json();
+        chatContainer.lastChild.remove();
+        addMessage(data.generations[0].text.trim(), 'bot');
+      } catch (err) {
+        chatContainer.lastChild.remove();
+        addMessage('Gagal menghubungi API.', 'bot');
       }
-      document.getElementById("userInput").value = '';
     }
-  </script>
-</body>
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    langBtn.addEventListener('click', () => {
+      isIndo = !isIndo;
+      langBtn.textContent = isIndo ? 'ID/EN' : 'EN/ID';
+    });
+
+    document.getElementById('faqBtn').addEventListener('click', () => {
+      addMessage('Silakan tanya apa pun, ini adalah fitur FAQ.', 'bot');
+    });
+    document.getElementById('profileBtn').addEventListener('click', () => {
+      addMessage('Ini adalah halaman profil kamu.', 'bot');
+    });
+    document.getElementById('supportBtn').addEventListener('click', () => {
+      addMessage('Hubungi kami di support@example.com.', 'bot');
+    });
+    document.getElementById('gmailBtn').addEventListener('click', () => {
+      const text = prompt('Ketik pesan untuk dikirim via Gmail:');
+      if (text) {
+        window.location.href = `mailto:?subject=Chatbot Message&body=${encodeURIComponent(text)}`;
+      }
+    });
+  </script></body>
 </html>
