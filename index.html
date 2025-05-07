@@ -80,10 +80,10 @@
     .footer { text-align:center; margin-top:3rem; font-size:12px; }
   </style>
 </head>
-<body>
+q<body>
   <div id="splash-screen">
     <img src="logo enterprise.png" alt="enterprise Logo" class="splash-logo"/>
-    <h1 class="fade-text">Selamat Datang Di <span style="color:#00d9ff;">ENTERPRISE</span></h1>
+    <h1 class="fade-text">Welcome to <span style="color:#00d9ff;">ENTERPRISE</span></h1>
   </div>  <div id="main-content" style="display:none;">
     <header>
       <div class="logo">
@@ -99,7 +99,6 @@
     <p onclick="setLanguage('ja')">日本語🇯🇵</p>
     <p onclick="setLanguage('ru')">Русский🇷🇺</p>
     <p onclick="setLanguage('zh')">中文🇨🇳</p>
-    <p onclick="setLanguage('ko')">한국어🇰🇷</p>
   </div>
   <p onclick="toggleSubmenu('about')" id="about-label">Tentang SkyAI ▼</p>
   <div id="about" class="settings-submenu">
@@ -112,7 +111,12 @@
     <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
   </div>
   <p onclick="resetChat()" id="reset-label">Reset Chat</p>
-</div>
+  <p onclick="toggleSubmenu('model')">Pilih Model ▼</p>
+<div id="model" class="settings-submenu">
+  <p onclick="setModel('command-r-plus')">Command R+</p>
+  <p onclick="setModel('command-r')">Command R</p>
+  <p onclick="setModel('command-r-plus-deepseek')">Command R+ DeepSeek</p
+  </div>
 
 <div class="center">
   <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
@@ -133,7 +137,7 @@
     let language = 'id';
     const translations = {
       id: {
-        welcome: "Selamat Datang Di <span style='color:#00d9ff'>ENTERPRISE</span>",
+        welcome: "Welcome to <span style='color:#00d9ff'>ENTERPRISE</span>",
         send: "Kirim",
         placeholder: "Tulis pertanyaan di sini...",
         start: "Hai! Aku Prise, ada yang bisa aku bantu?",
@@ -170,7 +174,7 @@
         dev: "M.Farizによって作成。まだ開発中です！",
         support: "サポート ▼",
         reset: "チャットをリセット",
-        footer: "制作：<b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
+        footer: "制作：<b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇯🇵",
         error: "接続エラー。",
         fail: "申し訳ありませんが、回答できません。"
       },
@@ -184,7 +188,7 @@
         dev: "Создано M.Fariz. Пока в разработке!",
         support: "Поддержка ▼",
         reset: "Сбросить чат",
-        footer: "Создано <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
+        footer: "Создано <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇷🇺",
         error: "Ошибка соединения.",
         fail: "Извините, я не могу ответить."
       },
@@ -198,24 +202,12 @@
         dev: "由 M.Fariz 创建，仍在开发中！",
         support: "支持 ▼",
         reset: "重置聊天",
-        footer: "由<b>RIZ-ENTERPRISE</b>创建 | © 2025 SKY.AI INDONESIAN🇮🇩",
+        footer: "由<b>RIZ-ENTERPRISE</b>创建 | © 2025 SKY.AI INDONESIAN🇨🇳",
         error: "连接错误。",
         fail: "对不起，我无法回答。"
-     },
-     ko: {
-       welcome: "환영합니다 <span style='color:#00d9ff'>ENTERPRISE</span>",
-       send: "보내기",
-       placeholder: "여기에 질문을 입력하세요...",
-       start: "안녕하세요! 저는 프라이즈입니다. 무엇을 도와드릴까요?",
-       about: "SkyAI 소개 ▼",
-       version: "AI-Enterprise 버전 1.0.",
-       dev: "M.Fariz에 의해 개발되었습니다. 아직 개발 중입니다!",
-       support: "지원 ▼",
-       reset: "채팅 초기화",
-       footer: "<b>RIZ-ENTERPRISE</b> 제작 | © 2025 SKY.AI INDONESIAN🇮🇩",
-       error: "연결 오류가 발생했습니다.",
-       fail: "죄송합니다. 답변할 수 없습니다."
       }
+    };
+
     function updateUI() {
       document.getElementById("welcome-text").innerHTML = translations[language].welcome;
       document.getElementById("send-btn").innerText = translations[language].send;
@@ -262,8 +254,13 @@
       const log = document.getElementById("chatlogs");
       const msg = translations[language].start;
       log.innerHTML += `<p><b>ENTERPRISE:</b> ${msg}</p>`;
+    
+      let model = 'command-r-plus'; // Model default
+    function setModel(selectedModel) {
+      model = selectedModel;
+      resetChat();
     }
-
+    
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
       const log = document.getElementById("chatlogs");
@@ -276,7 +273,7 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            model: "command-r-plus",
+            model: "model",
             message: input,
             temperature: 0.7,
             chat_history: [],
