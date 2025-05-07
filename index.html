@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <!-- Head section tetap sama -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Penilaian Siswa</title>
 </head>
 <body>
-  <!-- ...Konten lainnya tetap sama... -->
+    <h1>Form Penilaian Siswa</h1>
+    <form id="form-nilai">
+        <label>Nilai Ujian Sekolah (20%): <input type="number" id="nilai-us" required></label><br><br>
+        <label>Nilai Raport Semester 1 (20%): <input type="number" id="nilai-smt1" required></label><br><br>
+        <label>Nilai Raport Semester 2 (20%): <input type="number" id="nilai-smt2" required></label><br><br>
+        <label>Nilai Raport Semester 3 (10%): <input type="number" id="nilai-smt3" required></label><br><br>
+        <label>Nilai Raport Semester 4 (10%): <input type="number" id="nilai-smt4" required></label><br><br>
+        <label>Nilai Raport Semester 5 (20%): <input type="number" id="nilai-smt5" required></label><br><br>
+        <button type="submit">Hitung Kelulusan</button>
+    </form>
 
-  <div id="lang" class="settings-submenu">
-    <p onclick="setLanguage('id')">Indonesian🇮🇩</p>
-    <p onclick="setLanguage('en')">English🇬🇧</p>
-    <p onclick="setLanguage('ja')">日本語🇯🇵</p>
-    <p onclick="setLanguage('ru')">Русский🇷🇺</p>
-    <p onclick="setLanguage('zh')">中文🇨🇳</p>
-    <p onclick="setLanguage('fr')">Français🇫🇷</p> <!-- Bahasa Prancis ditambahkan -->
-  </div>
+    <h2 id="hasil"></h2>
 
-  <script>
-    let language = 'id';
-    const translations = {
-      id: { /* seperti sebelumnya */ },
-      en: { /* seperti sebelumnya */ },
-      ja: { /* seperti sebelumnya */ },
-      ru: { /* seperti sebelumnya */ },
-      zh: { /* seperti sebelumnya */ },
-      fr: {
-        welcome: "Bienvenue chez <span style='color:#00d9ff'>ENTERPRISE</span>",
-        send: "Envoyer",
-        placeholder: "Tapez votre question ici...",
-        start: "Salut ! Je suis Prise, que puis-je faire pour vous ?",
-        about: "À propos de SkyAI ▼",
-        version: "AI-Enterprise version 1.0.",
-        dev: "Créé par M.Fariz. Ce projet est encore en développement !",
-        support: "Support ▼",
-        reset: "Réinitialiser le chat",
-        footer: "Créé par <b>RIZ-ENTERPRISE</b> | © 2025 SKY.AI INDONESIAN🇮🇩",
-        error: "Erreur de connexion.",
-        fail: "Désolé, je ne peux pas répondre."
-      }
-    };
-    // Fungsi-fungsi JavaScript lainnya tetap sama
-  </script>
+    <script>
+        document.getElementById('form-nilai').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nilaiUS = parseFloat(document.getElementById('nilai-us').value);
+            const smt1 = parseFloat(document.getElementById('nilai-smt1').value);
+            const smt2 = parseFloat(document.getElementById('nilai-smt2').value);
+            const smt3 = parseFloat(document.getElementById('nilai-smt3').value);
+            const smt4 = parseFloat(document.getElementById('nilai-smt4').value);
+            const smt5 = parseFloat(document.getElementById('nilai-smt5').value);
+
+            const total = (nilaiUS * 0.2) + (smt1 * 0.2) + (smt2 * 0.2) + (smt3 * 0.1) + (smt4 * 0.1) + (smt5 * 0.2);
+
+            let status = '';
+            if (total >= 70) {
+                status = 'LULUS';
+            } else {
+                status = 'TIDAK LULUS';
+            }
+
+            document.getElementById('hasil').textContent = `Nilai Akhir: ${total.toFixed(2)} - Status: ${status}`;
+        });
+    </script>
 </body>
 </html>
