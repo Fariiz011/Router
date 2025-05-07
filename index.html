@@ -111,12 +111,7 @@
     <a href="https://wa.me/6287729044780" target="_blank">WhatsApp: 0877-2904-4780</a>
   </div>
   <p onclick="resetChat()" id="reset-label">Reset Chat</p>
-  <p onclick="toggleSubmenu('model')">Pilih Model ▼</p>
-<div id="model" class="settings-submenu">
-  <p onclick="setModel('command-r-plus')">Command R+</p>
-  <p onclick="setModel('command-r')">Command R</p>
-  <p onclick="setModel('command-r-plus-deepseek')">Command R+ DeepSeek</p
-  </div>
+</div>
 
 <div class="center">
   <img src="logo enterprise.png" alt="enterprise Logo" style="width:210px"/>
@@ -254,13 +249,8 @@
       const log = document.getElementById("chatlogs");
       const msg = translations[language].start;
       log.innerHTML += `<p><b>ENTERPRISE:</b> ${msg}</p>`;
-    
-      let model = 'command-r-plus'; // Model default
-    function setModel(selectedModel) {
-      model = selectedModel;
-      resetChat();
     }
-    
+
     async function sendMessage() {
       const input = document.getElementById("userInput").value;
       const log = document.getElementById("chatlogs");
@@ -273,7 +263,7 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            model: "model",
+            model: "command-r-plus",
             message: input,
             temperature: 0.7,
             chat_history: [],
